@@ -16,9 +16,7 @@ export default function App() {
 
   return (
     <>
-      <p>state: {storage}</p>
-      <button onClick={() => dispatch(incrementData())}>Incr</button>
-      <button onClick={() => dispatch(decrement())}>Decr</button>
+     
     </>
   );
 }
