@@ -1,24 +1,31 @@
 import './App.css';
 import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import Chart from './components/charts';
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
 
 
-export default function App() {
-  const storage = useSelector(state => state.data);
-  const dispatch = useDispatch();
-
-  const incrementData = () => ({
-    type: 'increment'
-  });
-  const decrement = () => ({
-    type: 'decrement'
-  });
+function Links() {
 
   return (
-    <>
-      <p>state: {storage}</p>
-      <button onClick={() => dispatch(incrementData())}>Incr</button>
-      <button onClick={() => dispatch(decrement())}>Decr</button>
-    </>
+      <div className='navigation'>
+          <NavLink className='link' to='/charts' activeClassName={"selected"}>Charts</NavLink>
+          
+      </div>
+  )
+}
+
+
+function App() {
+  return (
+    <Router>
+      <React.Fragment>
+        <Links />
+            
+            <Route path='/charts' component={Chart}/>
+         
+      </React.Fragment>
+    </Router>
   );
 }
+
+export default App;
