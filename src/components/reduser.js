@@ -3,7 +3,6 @@ const initialState = {
 };
 
 export default function reduser(state = initialState, action) {
-    console.log(state)
     switch (action.type) {
         case 'increment': {
             return {

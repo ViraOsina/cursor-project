@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import {NavLink, Route} from 'react-router-dom';
 import styled from 'styled-components';
+import logo from './mywallet.png';
 
 import Home from './components/Home';
 import Chart from './components/charts';
@@ -16,25 +17,39 @@ const Wrapper = styled.div`
 `;
 
 const Navigator = styled.div`
-  padding: 50px;
+  width: 20%;
   height: 100vh;
   background: #efefef;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Logo = styled.img`
+  width: 200px;
+  height: 100px;
 `;
 
 const Content = styled.div`
   width: 100%;
 `;
 
+const Balance = styled.div`
+  height: 100px;
+  textAlign: right;
+`;
+
 export default function App() {
   return (
     <Wrapper>
       <Navigator>
-        <NavLink exact to='/cursor-project'>Home</NavLink>
-        <NavLink exact to='/charts'>Charts</NavLink>
+        <Logo src={logo} alt='logo'/>
+        <NavLink to='/home'>Home</NavLink>
+        <NavLink to='/charts'>Charts</NavLink>
       </Navigator>
       <Content>
-        <div style={{height: '100px', textAlign: 'right'}}>Balance: $2500</div>
-        <Route path='/cursor-project' component={Home}/>
+        <Balance>Balance: $2500</Balance>
+        <Route path='/home' component={Home}/>
         <Route path='/charts' component={Chart}/>
       </Content>
     </Wrapper>

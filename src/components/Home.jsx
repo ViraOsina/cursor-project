@@ -1,18 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Link, Route, useRouteMatch} from 'react-router-dom';
-
+import {NavLink, Route, useRouteMatch} from 'react-router-dom';
+import Charges from './Charges';
+import Incomes from './Incomes';
 
 const Links = styled.div`
     display: flex;
 
 `;
 
+const LinkSpan = styled.span`
+    display: inline-block;
+    width: 200px;
+    text-decoration: none;
+    color: #000000;
+    text-align: center;
+    padding: 5px;
+`;
+
 
 const Filter = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     width: 100%;
 
 `;
@@ -21,7 +30,7 @@ const Span = styled.span`
 
 `;
 
-const InputSelect = styled.input`
+const InputSelect = styled.select`
 
 `;
 
@@ -29,35 +38,28 @@ const AddMore = styled.button`
 
 `;
 
-const Table = styled.div`
-    
-`;
 
 function Home() {
     const match = useRouteMatch();
     return(
         <>
             <Links>
-                <Link exact to={`${match.url}/charges`}>Charges</Link>
-                <Link exact to={`${match.url}/incomes`}>Incomes</Link>
-                <Route exact path='/charges' />
-                <Route exact path='/incomes' />
+                <NavLink to={`${match.url}/charges`}><LinkSpan>Charges</LinkSpan></NavLink>
+                <NavLink to={`${match.url}/incomes`}><LinkSpan>Incomes</LinkSpan></NavLink>
+                
             </Links>
             <Filter>
                 <Span>My Charges</Span>
-                <InputSelect />
+                <InputSelect >
+                    <option>Food</option>
+                    <option>Health</option>
+                    <option>Travel</option>
+                </InputSelect>
                 <AddMore>Add more</AddMore>
             </Filter>
-            <Table>
-                <table>
-                    <tr>
-                        <td>Category</td><td>Description</td><td>Date</td><td>Money</td><td>Action</td>
-                    </tr>
-                    <tr>
-                        <td>Food</td><td>meals</td><td>{new Date().toString().slice(4, 15)}</td><td>25$</td><td>...</td>
-                    </tr>
-                </table>
-            </Table>
+
+            <Route path={`${match.url}/charges`} component={Charges} />
+            <Route path={`${match.url}/incomes`} component={Incomes} />
         </>
     )
 }
