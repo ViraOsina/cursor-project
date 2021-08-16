@@ -3,7 +3,7 @@ import React from 'react';
 import {NavLink, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from './mywallet.png';
-import Home from './components/Home'
+import Home from './components/Home/Home'
 import Chart from './components/charts'
 import Categories from './components/Categories/Categories'
 import PageNotFound from './components/StyledComponents/PageNotFound'
@@ -23,6 +23,11 @@ const Navigator = styled.div`
   align-items: center;
 `;
 
+const MainLink = styled(NavLink)`
+  text-decoration: none;
+  color: ##5f5f5f;
+`;
+
 const Logo = styled.img`
   width: 200px;
   height: 100px;
@@ -30,11 +35,13 @@ const Logo = styled.img`
 
 const Content = styled.div`
 	width: 100%;
-`
+`;
+
+
 
 const Balance = styled.div`
   height: 100px;
-  textAlign: right;
+  text-align: right;
 `;
 
 export default function App() {
@@ -42,9 +49,9 @@ export default function App() {
     <Wrapper>
       <Navigator>
         <Logo src={logo} alt='logo'/>
-        <NavLink to='/cursor-project'>Home</NavLink>
-        <NavLink exact to="/categories">Categories</NavLink>
-        <NavLink to='/charts'>Charts</NavLink>
+        <MainLink to='/cursor-project'>Home</MainLink>
+        <MainLink exact to="/categories">Categories</MainLink>
+        <MainLink to='/charts'>Charts</MainLink>
       </Navigator>
       <Content>
         <Balance>Balance: $2500</Balance>
