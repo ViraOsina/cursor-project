@@ -15,7 +15,6 @@ const Wrapper = styled.div`
 `
 
 const Navigator = styled.div`
-<<<<<<< HEAD
   width: 20%;
   height: 100vh;
   background: #efefef;
