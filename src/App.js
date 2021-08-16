@@ -1,8 +1,11 @@
 import './App.css';
 import React from 'react';
-import {Link, Route} from 'react-router-dom';
-import Home from './components/Home';
+import {NavLink, Route} from 'react-router-dom';
 import styled from 'styled-components';
+
+import Home from './components/Home';
+import Chart from './components/charts';
+
 
 
 const Wrapper = styled.div`
@@ -26,11 +29,13 @@ export default function App() {
   return (
     <Wrapper>
       <Navigator>
-        <Link exact to='/cursor-project'>Home</Link>
+        <NavLink exact to='/cursor-project'>Home</NavLink>
+        <NavLink exact to='/charts'>Charts</NavLink>
       </Navigator>
       <Content>
         <div style={{height: '100px', textAlign: 'right'}}>Balance: $2500</div>
         <Route path='/cursor-project' component={Home}/>
+        <Route path='/charts' component={Chart}/>
       </Content>
     </Wrapper>
   );
