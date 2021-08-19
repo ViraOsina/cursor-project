@@ -1,12 +1,14 @@
 import './App.css';
-import React from 'react';
+import React, {useState} from 'react';
 import {NavLink, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from './mywallet.png';
-import Home from './components/Home/Home'
+import Home from './components/Home/Home';
 import Chart from './components/Charts/charts'
-import Categories from './components/Categories/Categories'
-import PageNotFound from './components/StyledComponents/PageNotFound'
+import Categories from './components/Categories/Categories';
+import PageNotFound from './components/StyledComponents/PageNotFound';
+import TableItems from './components/dataBase';
+
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -15,22 +17,30 @@ const Wrapper = styled.div`
 `
 
 const Navigator = styled.div`
-  width: 20%;
+  width: 8%;
   height: 100vh;
   background: #efefef;
+  padding: 50px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const MainLink = styled(NavLink)`
   text-decoration: none;
-  color: ##5f5f5f;
+  color: #5f5f5f;
+  margin: 5px;
+  :hover {
+    color: #26b8ff;
+  }
+  &.active {
+    color: #26b8ff;
+  }
 `;
 
 const Logo = styled.img`
-  width: 200px;
-  height: 100px;
+  width: 100%;
+  height: auto;
 `;
 
 const Content = styled.div`
@@ -40,11 +50,30 @@ const Content = styled.div`
 
 
 const Balance = styled.div`
-  height: 100px;
-  text-align: right;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+`;
+
+const BalanceHeader = styled.h3`
+  margin: 10px 20px;
+  color: #5f5f5f;
+`;
+const MoneyHeader = styled.h2`
+  margin: 0 20px;
+  
 `;
 
 export default function App() {
+  const [dataArr, setData] = useState(localStorage.DataBase ? JSON.parse(localStorage.DataBase) : TableItems);
+  const removeItem = (id) => {
+    const filteredArr = dataArr.filter((item, index) => index !== id);
+    setData(filteredArr);
+    localStorage.setItem('DataBase', JSON.stringify(filteredArr));
+};
+
   return (
     <Wrapper>
       <Navigator>
@@ -54,9 +83,17 @@ export default function App() {
         <MainLink to='/charts'>Charts</MainLink>
       </Navigator>
       <Content>
-        <Balance>Balance: $2500</Balance>
+        <Balance>
+          <BalanceHeader>Balance</BalanceHeader>
+          <MoneyHeader>$ {dataArr.reduce((acc, cur) => {
+            let bal = acc + parseFloat(cur.money);
+            return +bal.toFixed(2)
+          }, 0)}</MoneyHeader>
+        </Balance>
         <Switch>
-          <Route path='/cursor-project' component={Home}/>
+          <Route path='/cursor-project' component={Home}>
+            <Home removeItem={removeItem} dataArr={dataArr} setData={setData}/>
+          </Route>
           <Route exact path='/categories' component={Categories}/>
           <Route path='/charts' component={Chart}/>
           <Route exact path="*" component={PageNotFound} />

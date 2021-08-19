@@ -11,10 +11,13 @@ const ChartFlex = styled(Flex)`
 `;
 
 
-const MainChart = (props) => {
+const MainChart = ({chargesDates, chargesData}) => {
+//ordering dates   
+//const dates = chargesDates.map(x => Date.parse(x)).sort((a,b) => a-b);
+
+
 const state = {
-  labels: ['January', 'February', 'March',
-           'April', 'May'],
+  labels:  chargesDates,
   datasets: [
     {
       label: 'Income',
@@ -32,7 +35,7 @@ const state = {
         backgroundColor: 'rgba(132,125,115,1)',
         borderColor: 'rgba(132,125,115,1)',
         borderWidth: 2,
-        data: props.chargesData
+        data: chargesData.map(x=>+x)
       }
   ]
 }
