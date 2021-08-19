@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {NavLink, Route, useRouteMatch} from 'react-router-dom';
 import Charges from './Charges';
 import Incomes from './Incomes';
+import ModalForm from './modalComponent_addMore/Modal';
 import { useState } from 'react';
 
 const Links = styled.div`
@@ -14,9 +15,15 @@ const AdditionalLink = styled(NavLink)`
     display: inline-block;
     width: 200px;
     text-decoration: none;
-    color: ${props => props.className === 'active' ? '#26b8ff' : '#000000'};
+    color: '#000000';
     text-align: center;
     padding: 5px;
+    :hover {
+        color: #26b8ff;
+    }
+    &.active {
+        color: #26b8ff;
+      }
 `;
 
 const Filter = styled.div`
@@ -71,27 +78,32 @@ const tableItem = [
         money: '$180',
     },
     {
-        category: 'Helth',
+        category: 'Health',
         description: "Medicine",
         date: '27 Mar',
         money: '$13',
     },
 ];
 
+
 function Home() {
     const match = useRouteMatch();
-    const [dataArr, setData] = useState(tableItem)
+    const [dataArr, setData] = useState(localStorage.DataBase ? JSON.parse(localStorage.DataBase) : tableItem);
+    const [display, setDisplay] = useState('none');
 
-    
+    const removeItem = (id) => {
+        const filteredArr = dataArr.filter((item, index) => index !== id);
+        setData(filteredArr);
+        localStorage.setItem('DataBase', JSON.stringify(filteredArr));
+    };
 
-    const addMore = () => {
-        setData([...dataArr, {
-            category: 'Travel',
-            description: "-",
-            date: '25 Aug',
-            money: '$125',
-        }])
-    }
+    const openModal = () => {
+        setDisplay('block');
+    };
+
+    const closeModal = () => {
+        setDisplay('none')
+    };
 
     return(
         <>
@@ -108,15 +120,16 @@ function Home() {
                         <option>this month</option>
                     </Select>
                 </InputBlock>
-                <AddMore onClick={addMore}>Add more</AddMore>
+                <AddMore onClick={openModal}>Add more</AddMore>
             </Filter>
 
             <Route path={`${match.url}/charges`}>
-                <Charges data={dataArr}/>
+                <Charges data={dataArr} removeItem={removeItem}/>
             </Route>
             <Route path={`${match.url}/incomes`}>
                 <Incomes data={dataArr}/>
             </Route>
+            <ModalForm display={display} closeModal={closeModal} setData={setData} dataArr={dataArr} />
         </>
     )
 }

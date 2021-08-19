@@ -15,22 +15,30 @@ const Wrapper = styled.div`
 `
 
 const Navigator = styled.div`
-  width: 20%;
+  width: 8%;
   height: 100vh;
   background: #efefef;
+  padding: 50px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const MainLink = styled(NavLink)`
   text-decoration: none;
-  color: ##5f5f5f;
+  color: #5f5f5f;
+  margin: 5px;
+  :hover {
+    color: #26b8ff;
+  }
+  &.active {
+    color: #26b8ff;
+  }
 `;
 
 const Logo = styled.img`
-  width: 200px;
-  height: 100px;
+  width: 100%;
+  height: auto;
 `;
 
 const Content = styled.div`
@@ -40,8 +48,20 @@ const Content = styled.div`
 
 
 const Balance = styled.div`
-  height: 100px;
-  text-align: right;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+`;
+
+const BalanceHeader = styled.h3`
+  margin: 10px 20px;
+  color: #5f5f5f;
+`;
+const MoneyHeader = styled.h2`
+  margin: 0 20px;
+  
 `;
 
 export default function App() {
@@ -54,7 +74,10 @@ export default function App() {
         <MainLink to='/charts'>Charts</MainLink>
       </Navigator>
       <Content>
-        <Balance>Balance: $2500</Balance>
+        <Balance>
+          <BalanceHeader>Balance</BalanceHeader>
+          <MoneyHeader>$ 2500.00</MoneyHeader>
+        </Balance>
         <Switch>
           <Route path='/cursor-project' component={Home}/>
           <Route exact path='/categories' component={Categories}/>
