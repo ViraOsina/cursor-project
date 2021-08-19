@@ -115,7 +115,7 @@ export default function ModalForm (props) {
                         </ModalSelect>
                         <ModalInput onChange={e => {setDesc(e.target.value)}} value={description} required placeholder="Description" name="description" type="text" />
                         <ModalInput  readOnly value={date} name="date" type="text" />
-                        <ModalInput onChange={e => {setMoney(e.target.value)}} value={money} required placeholder="Money" name="money" type="number" />
+                        <ModalInput onChange={e => { setMoney( e.target.value ) }} value={money} required placeholder="Money" name="money" type="number" />
                         <ModalBtn onClick={(e) => {
                             localStorage.setItem('DataBase', JSON.stringify([...props.dataArr, {category, description, date, money}]));
                             props.setData([...props.dataArr, {category, description, date, money}]);

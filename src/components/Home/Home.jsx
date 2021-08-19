@@ -5,6 +5,7 @@ import Charges from './Charges';
 import Incomes from './Incomes';
 import ModalForm from './modalComponent_addMore/Modal';
 import { useState } from 'react';
+import TableItems from '../dataBase'
 
 const Links = styled.div`
     display: flex;
@@ -64,38 +65,15 @@ const AddMore = styled.button`
     border-radius: 5px;
 `;
 
-const tableItem = [
-    {
-        category: 'Food',
-        description: "All my food",
-        date: '22 Aug',
-        money: '$25',
-    },
-    {
-        category: 'Travel',
-        description: "buy a tent",
-        date: '15 May',
-        money: '$180',
-    },
-    {
-        category: 'Health',
-        description: "Medicine",
-        date: '27 Mar',
-        money: '$13',
-    },
-];
 
 
-function Home() {
+
+function Home({dataArr, setData, removeItem}) {
     const match = useRouteMatch();
-    const [dataArr, setData] = useState(localStorage.DataBase ? JSON.parse(localStorage.DataBase) : tableItem);
+    // const [dataArr, setData] = useState(localStorage.DataBase ? JSON.parse(localStorage.DataBase) : TableItems);
     const [display, setDisplay] = useState('none');
 
-    const removeItem = (id) => {
-        const filteredArr = dataArr.filter((item, index) => index !== id);
-        setData(filteredArr);
-        localStorage.setItem('DataBase', JSON.stringify(filteredArr));
-    };
+    
 
     const openModal = () => {
         setDisplay('block');

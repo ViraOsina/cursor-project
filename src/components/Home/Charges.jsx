@@ -23,7 +23,6 @@ export default function Charges(props) {
             <span>Action</span>
         </Table>
         {props.data.map((item, index) => {
-            console.log(index)
             return <TableRow key={index} removeId={index} removeItem={props.removeItem} data={item}/>
         })}
         

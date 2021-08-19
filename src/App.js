@@ -1,12 +1,14 @@
 import './App.css';
-import React from 'react';
+import React, {useState} from 'react';
 import {NavLink, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from './mywallet.png';
-import Home from './components/Home/Home'
-import Chart from './components/charts'
-import Categories from './components/Categories/Categories'
-import PageNotFound from './components/StyledComponents/PageNotFound'
+import Home from './components/Home/Home';
+import Chart from './components/charts';
+import Categories from './components/Categories/Categories';
+import PageNotFound from './components/StyledComponents/PageNotFound';
+import TableItems from './components/dataBase';
+
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -65,6 +67,13 @@ const MoneyHeader = styled.h2`
 `;
 
 export default function App() {
+  const [dataArr, setData] = useState(localStorage.DataBase ? JSON.parse(localStorage.DataBase) : TableItems);
+  const removeItem = (id) => {
+    const filteredArr = dataArr.filter((item, index) => index !== id);
+    setData(filteredArr);
+    localStorage.setItem('DataBase', JSON.stringify(filteredArr));
+};
+
   return (
     <Wrapper>
       <Navigator>
@@ -76,10 +85,15 @@ export default function App() {
       <Content>
         <Balance>
           <BalanceHeader>Balance</BalanceHeader>
-          <MoneyHeader>$ 2500.00</MoneyHeader>
+          <MoneyHeader>$ {dataArr.reduce((acc, cur) => {
+            let bal = acc + parseFloat(cur.money);
+            return +bal.toFixed(2)
+          }, 0)}</MoneyHeader>
         </Balance>
         <Switch>
-          <Route path='/cursor-project' component={Home}/>
+          <Route path='/cursor-project' component={Home}>
+            <Home removeItem={removeItem} dataArr={dataArr} setData={setData}/>
+          </Route>
           <Route exact path='/categories' component={Categories}/>
           <Route path='/charts' component={Chart}/>
           <Route exact path="*" component={PageNotFound} />

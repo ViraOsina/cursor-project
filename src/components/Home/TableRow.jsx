@@ -20,7 +20,7 @@ export default function TableRow({data, removeId, removeItem}) {
         <span><FontAwesomeIcon icon={faUtensils} /> {data.category}</span>
         <span>{data.description}</span>
         <span>{data.date}</span>
-        <span>{data.money}</span>
+        <span>$ { (parseFloat(data.money)).toFixed(2) }</span>
         <span><FontAwesomeIcon onClick={() => {
             removeItem(removeId)
         }} icon={faTrashAlt} /> <FontAwesomeIcon icon={faPen} /></span>
