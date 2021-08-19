@@ -4,7 +4,7 @@ import {NavLink, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from './mywallet.png';
 import Home from './components/Home/Home'
-import Chart from './components/charts'
+import Chart from './components/Charts/charts'
 import Categories from './components/Categories/Categories'
 import PageNotFound from './components/StyledComponents/PageNotFound'
 
