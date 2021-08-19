@@ -10,8 +10,8 @@ const ChartFlex = styled(Flex)`
   height: 45vh;
 `;
 
-//static test charts
 
+const MainChart = (props) => {
 const state = {
   labels: ['January', 'February', 'March',
            'April', 'May'],
@@ -23,7 +23,7 @@ const state = {
       backgroundColor: 'rgba(253,178,1,1)',
       borderColor: 'rgba(253,178,1,1)',
       borderWidth: 2,
-      data: [650, 59, 180, 81, 300]
+      data: [1, 150, 52, 15, 10]
     },
     {
         label: 'Expenses',
@@ -32,12 +32,12 @@ const state = {
         backgroundColor: 'rgba(132,125,115,1)',
         borderColor: 'rgba(132,125,115,1)',
         borderWidth: 2,
-        data: [65, 100, 80, 95, 56]
+        data: props.chargesData
       }
   ]
 }
 
-const MainChart = () => {
+
     return (
       <ChartFlex>
         <Line

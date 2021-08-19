@@ -1,6 +1,6 @@
 import React from 'react';
 //npm install --save react-chartjs-2 chart.js
-import {Bar} from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import Flex from '../StyledComponents/Flex'
 
 function randomColor() {
@@ -10,6 +10,8 @@ function randomColor() {
     
     return `hsl(${h}, ${s}%, ${l}%)`;
 }
+
+const IncomeChart = () => {
 
 const labels = ['category1', 'category2', 'category3', 'category4', 'category5', 'category6', 'category7'];
 
@@ -31,23 +33,29 @@ const data = {
     }]
   };
 
-const IncomeChart = () => {
+
     return (
       <Flex>
         <Bar
           data={data}
           
           options={{
-            title:{
-              display:true,
-              text:'Income by category',
-              fontSize:20
+            plugins: {
+                legend: {
+                    display: true,
+                    position:'bottom',
+                    labels: labels,
+                    
+                },
+                title:{
+                    display:true,
+                    text:'Income by category',
+                    fontSize:20
+                },
+                
             },
-            legend:{
-              display:true,
-              position:'right'
-            },
-            maintainAspectRatio: false,
+            responsive: true           
+           
           }}
         />
       </Flex>
