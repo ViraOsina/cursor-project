@@ -1,12 +1,19 @@
 import './App.css';
 import React, {useState} from 'react';
-import {NavLink, Route, Switch} from 'react-router-dom';
+import {NavLink, Redirect, Route, Switch, useRouteMatch} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from './mywallet.png';
+<<<<<<< HEAD
 import Home from './components/Home/Home';
 import Chart from './components/Charts/charts'
 import Categories from './components/Categories/Categories';
 import PageNotFound from './components/StyledComponents/PageNotFound';
+=======
+import Home from './components/Home/Home'
+import Chart from './components/Charts/charts'
+import Categories from './components/Categories/Categories'
+import PageNotFound from './components/StyledComponents/PageNotFound'
+>>>>>>> 48418ed365ae55f143b83776b0faaaa03871aa21
 import TableItems from './components/dataBase';
 
 
@@ -67,6 +74,8 @@ const MoneyHeader = styled.h2`
 `;
 
 export default function App() {
+  const match = useRouteMatch();
+
   const [dataArr, setData] = useState(localStorage.DataBase ? JSON.parse(localStorage.DataBase) : TableItems);
   const removeItem = (id) => {
     const filteredArr = dataArr.filter((item, index) => index !== id);
@@ -91,7 +100,7 @@ export default function App() {
           }, 0)}</MoneyHeader>
         </Balance>
         <Switch>
-          <Route path='/cursor-project' component={Home}>
+          <Route path='/cursor-project'>
             <Home removeItem={removeItem} dataArr={dataArr} setData={setData}/>
           </Route>
           <Route exact path='/categories' component={Categories}/>
