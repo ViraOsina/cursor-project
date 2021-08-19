@@ -5,7 +5,6 @@ import Charges from './Charges';
 import Incomes from './Incomes';
 import ModalForm from './modalComponent_addMore/Modal';
 import { useState } from 'react';
-import TableItems from '../dataBase'
 
 const Links = styled.div`
     display: flex;
@@ -70,7 +69,6 @@ const AddMore = styled.button`
 
 function Home({dataArr, setData, removeItem}) {
     const match = useRouteMatch();
-    // const [dataArr, setData] = useState(localStorage.DataBase ? JSON.parse(localStorage.DataBase) : TableItems);
     const [display, setDisplay] = useState('none');
 
     
@@ -101,10 +99,10 @@ function Home({dataArr, setData, removeItem}) {
                 <AddMore onClick={openModal}>Add more</AddMore>
             </Filter>
 
-            <Route path={`${match.url}/charges`}>
+            <Route path={`${match.path}/charges`}>
                 <Charges data={dataArr} removeItem={removeItem}/>
             </Route>
-            <Route path={`${match.url}/incomes`}>
+            <Route path={`${match.path}/incomes`}>
                 <Incomes data={dataArr}/>
             </Route>
             <ModalForm display={display} closeModal={closeModal} setData={setData} dataArr={dataArr} />

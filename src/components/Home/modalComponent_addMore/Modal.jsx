@@ -117,6 +117,8 @@ export default function ModalForm (props) {
                         <ModalInput  readOnly value={date} name="date" type="text" />
                         <ModalInput onChange={e => { setMoney( e.target.value ) }} value={money} required placeholder="Money" name="money" type="number" />
                         <ModalBtn onClick={(e) => {
+                            e.preventDefault();
+                            props.closeModal();
                             localStorage.setItem('DataBase', JSON.stringify([...props.dataArr, {category, description, date, money}]));
                             props.setData([...props.dataArr, {category, description, date, money}]);
                             
