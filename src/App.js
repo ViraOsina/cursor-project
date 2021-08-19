@@ -95,7 +95,7 @@ export default function App() {
         <Switch>
           <Route path='/cursor-project'>
             <Home removeItem={removeItem} dataArr={dataArr} setData={setData}/>
-            <Redirect to={`${match.url}/charges`}/>
+            <Redirect to='/charges'/>
           </Route>
           <Route exact path='/categories' component={Categories}/>
           <Route path='/charts' component={Chart}/>
