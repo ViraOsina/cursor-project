@@ -1,6 +1,6 @@
 import './App.css';
 import React, {useState} from 'react';
-import {NavLink, Route, Switch} from 'react-router-dom';
+import {NavLink, Redirect, Route, Switch, useRouteMatch} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from './mywallet.png';
 import Home from './components/Home/Home';
@@ -67,6 +67,8 @@ const MoneyHeader = styled.h2`
 `;
 
 export default function App() {
+  const match = useRouteMatch();
+
   const [dataArr, setData] = useState(localStorage.DataBase ? JSON.parse(localStorage.DataBase) : TableItems);
   const removeItem = (id) => {
     const filteredArr = dataArr.filter((item, index) => index !== id);
@@ -91,8 +93,9 @@ export default function App() {
           }, 0)}</MoneyHeader>
         </Balance>
         <Switch>
-          <Route path='/cursor-project' component={Home}>
+          <Route path='/cursor-project'>
             <Home removeItem={removeItem} dataArr={dataArr} setData={setData}/>
+            <Redirect to='cursor-project/charges'/>
           </Route>
           <Route exact path='/categories' component={Categories}/>
           <Route path='/charts' component={Chart}/>
