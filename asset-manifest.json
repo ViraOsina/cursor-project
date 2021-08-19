@@ -1,22 +1,23 @@
 {
   "files": {
-    "main.css": "/cursor-project/static/css/main.ea1455b2.chunk.css",
-    "main.js": "/cursor-project/static/js/main.166aec99.chunk.js",
-    "main.js.map": "/cursor-project/static/js/main.166aec99.chunk.js.map",
-    "runtime-main.js": "/cursor-project/static/js/runtime-main.adc5fb39.js",
-    "runtime-main.js.map": "/cursor-project/static/js/runtime-main.adc5fb39.js.map",
-    "static/js/2.235273de.chunk.js": "/cursor-project/static/js/2.235273de.chunk.js",
-    "static/js/2.235273de.chunk.js.map": "/cursor-project/static/js/2.235273de.chunk.js.map",
-    "static/js/3.9884b4cf.chunk.js": "/cursor-project/static/js/3.9884b4cf.chunk.js",
-    "static/js/3.9884b4cf.chunk.js.map": "/cursor-project/static/js/3.9884b4cf.chunk.js.map",
+    "main.css": "/cursor-project/static/css/main.2e7919c8.chunk.css",
+    "main.js": "/cursor-project/static/js/main.75f00dfe.chunk.js",
+    "main.js.map": "/cursor-project/static/js/main.75f00dfe.chunk.js.map",
+    "runtime-main.js": "/cursor-project/static/js/runtime-main.f4a4ffe9.js",
+    "runtime-main.js.map": "/cursor-project/static/js/runtime-main.f4a4ffe9.js.map",
+    "static/js/2.8b82d448.chunk.js": "/cursor-project/static/js/2.8b82d448.chunk.js",
+    "static/js/2.8b82d448.chunk.js.map": "/cursor-project/static/js/2.8b82d448.chunk.js.map",
+    "static/js/3.5b036e10.chunk.js": "/cursor-project/static/js/3.5b036e10.chunk.js",
+    "static/js/3.5b036e10.chunk.js.map": "/cursor-project/static/js/3.5b036e10.chunk.js.map",
     "index.html": "/cursor-project/index.html",
-    "static/css/main.ea1455b2.chunk.css.map": "/cursor-project/static/css/main.ea1455b2.chunk.css.map",
-    "static/js/2.235273de.chunk.js.LICENSE.txt": "/cursor-project/static/js/2.235273de.chunk.js.LICENSE.txt"
+    "static/css/main.2e7919c8.chunk.css.map": "/cursor-project/static/css/main.2e7919c8.chunk.css.map",
+    "static/js/2.8b82d448.chunk.js.LICENSE.txt": "/cursor-project/static/js/2.8b82d448.chunk.js.LICENSE.txt",
+    "static/media/mywallet.5bbd8db1.png": "/cursor-project/static/media/mywallet.5bbd8db1.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.adc5fb39.js",
-    "static/js/2.235273de.chunk.js",
-    "static/css/main.ea1455b2.chunk.css",
-    "static/js/main.166aec99.chunk.js"
+    "static/js/runtime-main.f4a4ffe9.js",
+    "static/js/2.8b82d448.chunk.js",
+    "static/css/main.2e7919c8.chunk.css",
+    "static/js/main.75f00dfe.chunk.js"
   ]
 }
