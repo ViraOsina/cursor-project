@@ -5,8 +5,8 @@ import TableRow from './TableRow';
 const Table = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 50px;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+    border-top: 1px solid #cacaca;
+    border-bottom: 1px solid #cacaca;
     padding: 10px 20px;
 `;
 
