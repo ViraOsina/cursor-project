@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const StyledButton = styled.button`
 	width: ${({ width }) => width || '100px'};
 	height: ${({ height }) => height || '40px'};
-	background-color: ${({bColor}) => bColor || 'blue'};
+	background-color: ${({ bColor }) => bColor || 'rgb(90,	141,	238	)'};
 	color: ${({ color }) => color || 'white'};
 	font-weight: 500;
 	padding: ${({ padding }) => padding || '2px'};
