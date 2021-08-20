@@ -3,11 +3,12 @@ import styled from 'styled-components'
 
 const StyledButton = styled.button`
 	width: ${({ width }) => width || '100px'};
-	background-color: rgb(144, 202, 249);
-	color: rgb(042, 58, 72);
+	height: ${({ height }) => height || '40px'};
+	background-color: ${({bColor}) => bColor || 'blue'};
+	color: ${({ color }) => color || 'white'};
 	font-weight: 500;
-	padding: 5px;
-	border-radius: 2px;
+	padding: ${({ padding }) => padding || '2px'};
+	border-radius: ${({ bRadius }) => bRadius || '5px'};
 	border: none;
 	cursor: pointer;
 `
