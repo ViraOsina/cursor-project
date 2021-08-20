@@ -55,7 +55,7 @@ export default function Incomes(props) {
         <>
             <Filter>
                 <InputBlock>
-                    <Span>My Charges</Span>
+                    <Span>My Incomes</Span>
                     <Select >
                         <option>this week</option>
                         <option>this month</option>
