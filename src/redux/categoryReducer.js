@@ -1,26 +1,42 @@
+import Icons from '../components/Icons'
 import { ADD_CATEGORY } from './actionTypes'
 
 const initialState = {
 	categories: [
 		{
-			name: 'food',
 			id: Math.trunc(Math.random() * Date.now()),
+			name: 'Food',
+			icon: Icons.Food,
+			description: 'For all my food',
+			date: '21.07.2021',
 		},
 		{
-			name: 'clothes',
 			id: Math.trunc(Math.random() * Date.now()),
+			name: 'Clothes',
+			icon: Icons.Clothes,
+			description: 'Clothing costs',
+			date: '11.06.2021',
 		},
 		{
-			name: 'restaurants',
 			id: Math.trunc(Math.random() * Date.now()),
+			name: 'Restaurants',
+			icon: Icons.Restaurants,
+			description: 'The cost of going to the restaurant',
+			date: '19.01.2019',
 		},
 		{
+			id: Math.trunc(Math.random() * Date.now()),
 			name: 'Utility bills',
-			id: Math.trunc(Math.random() * Date.now()),
+			icon: Icons.UtilityBills,
+			description: 'Who invented the water bills?',
+			date: '16.04.2020',
 		},
 		{
-			name: 'pets',
 			id: Math.trunc(Math.random() * Date.now()),
+			name: 'Pets',
+			icon: Icons.Pets,
+			description: 'Shopping for a tailed friend',
+			date: '12.08.2021',
 		},
 	],
 }
@@ -40,7 +56,7 @@ export const categoryReducer = (state = initialState, action) => {
 export const addCategoryAction = payload => ({
 	type: ADD_CATEGORY,
 	payload: {
-		name: payload,
 		id: Math.trunc(Math.random() * Date.now()),
+		name: payload,
 	},
 })
