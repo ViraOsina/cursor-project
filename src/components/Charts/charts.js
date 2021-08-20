@@ -4,12 +4,13 @@ import IncomeChart from './income-chart';
 import ChargesChart from './charges-chart';
 import Flex from '../StyledComponents/Flex'
 import styled from 'styled-components';
+import TableItems from '../dataBase';
 
 const ColumFlex = styled(Flex)`
   flex-direction:column
 `;
 
-const rawData = JSON.parse(localStorage.getItem('DataBase'));
+const rawData = localStorage.DataBase ? JSON.parse(localStorage.getItem('DataBase')) : TableItems;
 //there is no definition which localStorage entry is "income" and which is "charge". For now assume all are charges
 let chargesData = [];
 let chargesCategories = [];
