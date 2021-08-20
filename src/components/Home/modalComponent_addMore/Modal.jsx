@@ -96,33 +96,50 @@ export default function ModalForm (props) {
     const [date] = useState(new Date().toString().slice(4, 10));
     const [money, setMoney] = useState('');
 
+    const submitBtn = (e) => {
+        e.preventDefault();
+        props.closeModal();
+        
+        if(props.target === 'charges') {
+            localStorage.setItem('DataBase', JSON.stringify([...props.dataArr, {category, description, date, money}]));
+            props.setData([...props.dataArr, {category, description, date, money}]);
+        } else {
+            localStorage.setItem('DataBaseIncomes', JSON.stringify([...props.dataArrIncomes, {category, description, date, money}]));
+            props.setIncomes([...props.dataArrIncomes, {category, description, date, money}]);
+        }
+    }
 
     return (
         <Modal display={props.display}>
             <ModalDialog>
                 <ModalContent>
                     <form action="#" >
-                        <ModalClose onClick={props.closeModal} data-close>&times;</ModalClose>
-                        <ModalTitle>Add Charge</ModalTitle>
+                        <ModalClose onClick={props.closeModal}>&times;</ModalClose>
+                        <ModalTitle>Add {props.target}</ModalTitle>
                         <ModalSelect onChange={e => {setCategory(e.target.value)}} value={category} required name="category">
-                            <option>Food</option>
-                            <option>Restaurants</option>
-                            <option>Travel</option>
-                            <option>Health</option>
-                            <option>Car</option>
-                            <option>Home</option>
-                            <option>Fun</option>
+                            {
+                                props.target === 'charges' ? 
+                                <>
+                                    <option>Food</option>
+                                    <option>Restaurants</option>
+                                    <option>Travel</option>
+                                    <option>Health</option>
+                                    <option>Car</option>
+                                    <option>Home</option>
+                                    <option>Fun</option>
+                                </> :
+                                <>
+                                    <option>Salary</option>
+                                    <option>Bonus</option>
+                                    <option>Gift</option>
+                                    <option>Other</option>
+                                </>
+                            }
                         </ModalSelect>
                         <ModalInput onChange={e => {setDesc(e.target.value)}} value={description} required placeholder="Description" name="description" type="text" />
                         <ModalInput  readOnly value={date} name="date" type="text" />
                         <ModalInput onChange={e => { setMoney( e.target.value ) }} value={money} required placeholder="Money" name="money" type="number" />
-                        <ModalBtn onClick={(e) => {
-                            e.preventDefault();
-                            props.closeModal();
-                            localStorage.setItem('DataBase', JSON.stringify([...props.dataArr, {category, description, date, money}]));
-                            props.setData([...props.dataArr, {category, description, date, money}]);
-                            
-                    }}>Add</ModalBtn>
+                        <ModalBtn onClick={submitBtn}>Add</ModalBtn>
                     </form>
                 </ModalContent>
             </ModalDialog>

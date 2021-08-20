@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import {NavLink, Route, useRouteMatch} from 'react-router-dom';
 import Charges from './Charges';
 import Incomes from './Incomes';
-import ModalForm from './modalComponent_addMore/Modal';
 import { useState } from 'react';
 
 const Links = styled.div`
@@ -26,52 +25,9 @@ const AdditionalLink = styled(NavLink)`
       }
 `;
 
-const Filter = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-
-`;
-
-const InputBlock = styled.div`
-
-`;
-
-const Span = styled.span`
-    font-size: 18px;
-    font-weight: 500;
-    display: inline-block;
-    margin: 25px 10px 25px 0;  
-    color: #5f5f5f;
-`;
-
-const Select = styled.select`
-    font-size: 18px;
-    border: none;
-    outline: none;
-    color: #5f5f5f;
-`;
-
-const AddMore = styled.button`
-    height: 40px;
-    padding: 0 20px;
-    background: #26b8ff;
-    color: white;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-`;
-
-
-
-
-function Home({dataArr, setData, removeItem}) {
+function Home({dataArr, dataArrIncomes, setData, setIncomes, removeItem}) {
     const match = useRouteMatch();
     const [display, setDisplay] = useState('none');
-
-    
 
     const openModal = () => {
         setDisplay('block');
@@ -88,24 +44,27 @@ function Home({dataArr, setData, removeItem}) {
                 <AdditionalLink to={`${match.url}/incomes`}>Incomes</AdditionalLink>
                 
             </Links>
-            <Filter>
-                <InputBlock>
-                    <Span>My Charges</Span>
-                    <Select >
-                        <option>this week</option>
-                        <option>this month</option>
-                    </Select>
-                </InputBlock>
-                <AddMore onClick={openModal}>Add more</AddMore>
-            </Filter>
+            
 
             <Route path={`${match.path}/charges`}>
-                <Charges data={dataArr} removeItem={removeItem}/>
+                <Charges 
+                    dataArr={dataArr} 
+                    setData={setData} 
+                    removeItem={removeItem} 
+                    openModal={openModal} 
+                    closeModal={closeModal} 
+                    display={display}/>
             </Route>
             <Route path={`${match.path}/incomes`}>
-                <Incomes data={dataArr}/>
+                <Incomes 
+                    dataArrIncomes={dataArrIncomes}
+                    setIncomes={setIncomes} 
+                    removeItem={removeItem} 
+                    openModal={openModal} 
+                    closeModal={closeModal} 
+                    display={display}/>
             </Route>
-            <ModalForm display={display} closeModal={closeModal} setData={setData} dataArr={dataArr} />
+            
         </>
     )
 }

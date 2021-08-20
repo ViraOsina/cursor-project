@@ -8,6 +8,7 @@ import Chart from './components/Charts/charts'
 import Categories from './components/Categories/Categories';
 import PageNotFound from './components/StyledComponents/PageNotFound';
 import TableItems from './components/dataBase';
+import TableItemsIncomes from './components/dataBaseIncomes';
 
 
 const Wrapper = styled.div`
@@ -66,13 +67,35 @@ const MoneyHeader = styled.h2`
   
 `;
 
+
 export default function App() {
   const [dataArr, setData] = useState(localStorage.DataBase ? JSON.parse(localStorage.DataBase) : TableItems);
-  const removeItem = (id) => {
-    const filteredArr = dataArr.filter((item, index) => index !== id);
-    setData(filteredArr);
-    localStorage.setItem('DataBase', JSON.stringify(filteredArr));
-};
+  const [dataArrIncomes, setIncomes] = useState(localStorage.DataBaseIncomes ? JSON.parse(localStorage.DataBaseIncomes) : TableItemsIncomes);
+
+  const removeItem = (id, target) => {
+    const filteredArr = target.filter((item, index) => index !== id);
+    console.log(target === dataArr)
+
+    if(target === dataArr) {
+      setData(filteredArr);
+      localStorage.setItem('DataBase', JSON.stringify(filteredArr));
+    } else {
+      setIncomes(filteredArr);
+      localStorage.setItem('DataBaseIncomes', JSON.stringify(filteredArr));
+    }
+  };
+
+  const countBalance = () => {
+    const inc = dataArrIncomes.reduce((acc, cur) => {
+      let bal = acc + parseFloat(cur.money);
+      return +bal.toFixed(2)
+    }, 0);
+    const char = dataArr.reduce((acc, cur) => {
+      let bal = acc + parseFloat(cur.money);
+      return +bal.toFixed(2)
+    }, 0);
+    return inc - char;
+  }
 
   return (
     <Wrapper>
@@ -85,14 +108,11 @@ export default function App() {
       <Content>
         <Balance>
           <BalanceHeader>Balance</BalanceHeader>
-          <MoneyHeader>$ {dataArr.reduce((acc, cur) => {
-            let bal = acc + parseFloat(cur.money);
-            return +bal.toFixed(2)
-          }, 0)}</MoneyHeader>
+          <MoneyHeader>$ {countBalance()} </MoneyHeader>
         </Balance>
         <Switch>
           <Route path='/cursor-project'>
-            <Home removeItem={removeItem} dataArr={dataArr} setData={setData}/>
+            <Home removeItem={removeItem} dataArr={dataArr} dataArrIncomes={dataArrIncomes} setData={setData} setIncomes={setIncomes}/>
             <Redirect to='/cursor-project/charges'/>
           </Route>
           <Route exact path='/categories' component={Categories}/>

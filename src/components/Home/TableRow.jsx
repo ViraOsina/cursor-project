@@ -1,11 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faUtensils,
-    faPen,
-    faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import Icons from '../Icons';
 
 const Row = styled.div`
     display: grid;
@@ -13,19 +9,17 @@ const Row = styled.div`
     padding: 10px 20px;
 `;
 
-export default function TableRow({data, removeId, removeItem}) {
+export default function TableRow({data, removeId, removeItem, target}) {
     return(
     <Row>
-        
-        <span><FontAwesomeIcon icon={faUtensils} /> {data.category}</span>
+        <span><FontAwesomeIcon icon={Icons[data.category]} /> {data.category}</span>
         <span>{data.description}</span>
         <span>{data.date}</span>
         <span>$ { (parseFloat(data.money)).toFixed(2) }</span>
-        <span><FontAwesomeIcon onClick={() => {
-            removeItem(removeId)
-        }} icon={faTrashAlt} /> <FontAwesomeIcon icon={faPen} /></span>
+        <span style={{cursor: 'pointer'}}><FontAwesomeIcon onClick={() => {
+            removeItem(removeId, target)
+        }} icon={Icons.faTrashAlt} /> <FontAwesomeIcon icon={Icons.faPen} /></span>
     </Row>
-
     )
 }
 
