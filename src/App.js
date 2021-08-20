@@ -1,4 +1,3 @@
-import './App.css';
 import React, {useState} from 'react';
 import {NavLink, Redirect, Route, Switch, } from 'react-router-dom';
 import styled from 'styled-components';
