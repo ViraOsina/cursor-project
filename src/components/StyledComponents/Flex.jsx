@@ -9,6 +9,8 @@ const StyledFlex = styled.div`
 	margin: ${({ margin }) => margin || '0'};
 	width: ${({ width }) => width || '100%'};
 	height: ${({ height }) => height || '100%'};
+	flex-wrap: ${({wrap}) => wrap || ''}
+	
 `
 
 export default function Flex(props) {

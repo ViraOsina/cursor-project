@@ -2,20 +2,23 @@ import React from 'react'
 import Flex from '../StyledComponents/Flex'
 import Title from '../StyledComponents/Title'
 import Button from '../StyledComponents/Button'
-import TextContent from '../StyledComponents/TextContent'
 import { useDispatch, useSelector } from 'react-redux'
 import { addCategoryAction } from '../../redux/categoryReducer'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Category from './Category'
 import TableRow from '../StyledComponents/TableRow'
 import TableRowItem from '../StyledComponents/TableRowItem'
+import ModalAddCategory from './ModalAddCategory'
+import { useState } from 'react'
+import Icons from '../Icons'
 
 export default function CategoriesPage() {
 	const dispatch = useDispatch()
 	const categories = useSelector(state => state.category.categories)
+	const [modalActive, setModalActive] = useState(true)
 
 	const addCategoryHandler = e => {
-		dispatch(addCategoryAction(prompt()))
+		setModalActive(true)
+		dispatch(addCategoryAction())
 	}
 
 	return (
@@ -37,6 +40,11 @@ export default function CategoriesPage() {
 					<Category {...category} key={category.id} />
 				))}
 			</Flex>
+			<ModalAddCategory
+				active={modalActive}
+				setActive={setModalActive}
+				icons={Icons}
+			/>
 		</Flex>
 	)
 }

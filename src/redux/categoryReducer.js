@@ -57,6 +57,9 @@ export const addCategoryAction = payload => ({
 	type: ADD_CATEGORY,
 	payload: {
 		id: Math.trunc(Math.random() * Date.now()),
-		name: payload,
+		name: payload.name,
+		icon: Icons[payload.icon],
+		description: payload.description,
+		date: Date.now().toLocaleString(),
 	},
 })
