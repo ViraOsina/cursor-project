@@ -11,6 +11,10 @@ const StyledButton = styled.button`
 	border-radius: ${({ bRadius }) => bRadius || '5px'};
 	border: none;
 	cursor: pointer;
+	margin: 0 auto;
+	&:focus {
+		background-color: #182bcd;
+	}
 `
 
 export default function Button(props) {
