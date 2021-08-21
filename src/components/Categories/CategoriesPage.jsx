@@ -3,7 +3,6 @@ import Flex from '../StyledComponents/Flex'
 import Title from '../StyledComponents/Title'
 import Button from '../StyledComponents/Button'
 import { useDispatch, useSelector } from 'react-redux'
-import { addCategoryAction } from '../../redux/categoryReducer'
 import Category from './Category'
 import TableRow from '../StyledComponents/TableRow'
 import TableRowItem from '../StyledComponents/TableRowItem'
@@ -18,7 +17,6 @@ export default function CategoriesPage() {
 
 	const addCategoryHandler = e => {
 		setModalActive(true)
-		dispatch(addCategoryAction())
 	}
 
 	return (

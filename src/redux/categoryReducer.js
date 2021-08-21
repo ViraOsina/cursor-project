@@ -1,5 +1,5 @@
 import Icons from '../components/Icons'
-import { ADD_CATEGORY } from './actionTypes'
+import { ADD_CATEGORY, REMOVE_CATEGORY } from './actionTypes'
 
 const initialState = {
 	categories: [
@@ -48,6 +48,15 @@ export const categoryReducer = (state = initialState, action) => {
 				...state,
 				categories: [...state.categories, action.payload],
 			}
+		case REMOVE_CATEGORY:
+			return {
+				...state,
+				categories: [
+					...state.categories.filter(
+						category => category.id !== action.payload
+					),
+				],
+			}
 		default:
 			return state
 	}
@@ -62,4 +71,9 @@ export const addCategoryAction = payload => ({
 		description: payload.description,
 		date: Date.now().toLocaleString(),
 	},
+})
+
+export const removeCategoryAction = payload => ({
+	type: REMOVE_CATEGORY,
+	payload,
 })
