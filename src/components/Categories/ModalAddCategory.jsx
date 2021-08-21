@@ -11,22 +11,16 @@ import Flex from '../StyledComponents/Flex'
 import Button from '../StyledComponents/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
-import { ADD_CATEGORY } from '../../redux/actionTypes'
 import { addCategoryAction } from '../../redux/categoryReducer'
 
 export default function ModalAddCategory({ active, setActive, icons }) {
 	const dispatch = useDispatch()
-	const categories = useSelector(state => state.category.categories)
 	const [selectedIcon, setSelectedIcon] = useState('')
 	const [categoryName, setCategoryName] = useState('')
 	const [categoryDescription, setCategoryDescription] = useState('')
-
-	function selectIconHandler(icon) {
-		setSelectedIcon(icon)
-	}
+	const [formValid, setFormValid] = useState(false)
 
 	const faTrashAlt = icons.faTrashAlt
-
 	const categoryIcons = []
 
 	function onChangeHandler(e) {
@@ -39,31 +33,33 @@ export default function ModalAddCategory({ active, setActive, icons }) {
 
 	function handleSubmit(e) {
 		e.preventDefault()
-		dispatch(
-			addCategoryAction({
-				name: categoryName,
-				icon: selectedIcon,
-				description: categoryDescription,
-			})
-		)
+		if (categoryName && selectedIcon) {
+			dispatch(
+				addCategoryAction({
+					name: categoryName,
+					icon: selectedIcon,
+					description: categoryDescription,
+				})
+			)
+			setCategoryName('')
+			setCategoryDescription('')
+			setSelectedIcon('')
+		} else {
+		}
 	}
 
 	for (const [iconName, iconValue] of Object.entries(icons)) {
 		if (iconValue !== faTrashAlt) {
 			categoryIcons.push(
-				<Flex
-					width="20%"
-					margin="8px"
-					justify="center"
-					key={Math.trunc(Math.random() * Date.now())}
-				>
-					<FontAwesomeIcon
-						onClick={() => {
-							selectIconHandler(iconName)
+				<Flex width="20%" margin="8px" justify="center" key={iconName}>
+					<Button
+						onClick={e => {
+							e.preventDefault()
+							setSelectedIcon(iconName)
 						}}
-						name={iconName}
-						icon={iconValue}
-					/>
+					>
+						<FontAwesomeIcon name={iconName} icon={iconValue} />
+					</Button>
 				</Flex>
 			)
 		}
@@ -75,7 +71,7 @@ export default function ModalAddCategory({ active, setActive, icons }) {
 				<Flex margin="auto 20px">
 					<ModalContent>
 						<ModalClose onClick={() => setActive(false)}>&times;</ModalClose>
-						<form onSubmit={e => handleSubmit(e)}>
+						<form>
 							<ModalInput
 								onChange={e => onChangeHandler(e)}
 								placeholder="Name"
@@ -96,7 +92,11 @@ export default function ModalAddCategory({ active, setActive, icons }) {
 							>
 								{categoryIcons}
 							</Flex>
-							<Button type="submit">Add new category</Button>
+							<Flex>
+								<Button onClick={e => handleSubmit(e)} width="80%">
+									Add new category
+								</Button>
+							</Flex>
 						</form>
 					</ModalContent>
 				</Flex>
