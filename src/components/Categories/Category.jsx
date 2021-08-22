@@ -14,6 +14,18 @@ export default function Category(props) {
 		dispatch(removeCategoryAction(id))
 	}
 
+	let removeIcon = null
+
+	if (!props.standard) {
+		removeIcon = (
+			<FontAwesomeIcon
+				onClick={() => removeActionHandler(props.id)}
+				icon={faTrashAlt}
+				style={{ cursor: 'pointer' }}
+			/>
+		)
+	}
+
 	return (
 		<TableRow>
 			<TableRowItem>
@@ -22,12 +34,7 @@ export default function Category(props) {
 			</TableRowItem>
 			<TableRowItem>{props.description}</TableRowItem>
 			<TableRowItem>{props.date}</TableRowItem>
-			<TableRowItem style={{ cursor: 'pointer' }}>
-				<FontAwesomeIcon
-					onClick={() => removeActionHandler(props.id)}
-					icon={faTrashAlt}
-				/>
-			</TableRowItem>
+			<TableRowItem>{removeIcon}</TableRowItem>
 		</TableRow>
 	)
 }
