@@ -1,5 +1,9 @@
 import Icons from '../components/Icons'
 import { ADD_CATEGORY, REMOVE_CATEGORY } from './actionTypes'
+import moment from 'moment'
+
+const m = moment()
+console.log(m.format('DD-MMM'))
 
 const initialState = {
 	categories: [
@@ -8,35 +12,40 @@ const initialState = {
 			name: 'Food',
 			icon: Icons.Food,
 			description: 'For all my food',
-			date: '21.07.2021',
+			date: '21 Jul',
+			standard: true,
 		},
 		{
 			id: Math.trunc(Math.random() * Date.now()),
 			name: 'Clothes',
 			icon: Icons.Clothes,
 			description: 'Clothing costs',
-			date: '11.06.2021',
+			date: '9 Jun',
+			standard: true,
 		},
 		{
 			id: Math.trunc(Math.random() * Date.now()),
 			name: 'Restaurants',
 			icon: Icons.Restaurants,
 			description: 'The cost of going to the restaurant',
-			date: '19.01.2019',
+			date: '17 Dec',
+			standard: true,
 		},
 		{
 			id: Math.trunc(Math.random() * Date.now()),
 			name: 'Utility bills',
 			icon: Icons.UtilityBills,
 			description: 'Who invented the water bills?',
-			date: '16.04.2020',
+			date: '14 Nov',
+			standard: true,
 		},
 		{
 			id: Math.trunc(Math.random() * Date.now()),
 			name: 'Pets',
 			icon: Icons.Pets,
 			description: 'Shopping for a tailed friend',
-			date: '12.08.2021',
+			date: '21 Oct',
+			standard: true,
 		},
 	],
 }
@@ -69,7 +78,7 @@ export const addCategoryAction = payload => ({
 		name: payload.name,
 		icon: Icons[payload.icon],
 		description: payload.description,
-		date: Date.now().toLocaleString(),
+		date: moment().format('MMM DD'),
 	},
 })
 
