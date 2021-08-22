@@ -11,7 +11,7 @@ const StyledButton = styled.button`
 	border-radius: ${({ bRadius }) => bRadius || '5px'};
 	border: none;
 	cursor: pointer;
-	margin: 0 auto;
+	margin: ${({ margin }) => margin || 0};
 	&:focus {
 		background-color: #182bcd;
 	}
