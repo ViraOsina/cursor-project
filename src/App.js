@@ -9,6 +9,7 @@ import PageNotFound from './components/StyledComponents/PageNotFound'
 import TableItems from './components/dataBase'
 import TableItemsIncomes from './components/dataBaseIncomes'
 
+
 const Wrapper = styled.div`
 	width: 100%;
 	min-height: 100vh;

@@ -12,13 +12,14 @@ import Button from '../StyledComponents/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { addCategoryAction } from '../../redux/categoryReducer'
+import TextContent from '../StyledComponents/TextContent'
 
 export default function ModalAddCategory({ active, setActive, icons }) {
 	const dispatch = useDispatch()
 	const [selectedIcon, setSelectedIcon] = useState('')
 	const [categoryName, setCategoryName] = useState('')
 	const [categoryDescription, setCategoryDescription] = useState('')
-	const [formValid, setFormValid] = useState(false)
+	const [errorMessage, setErrorMessage] = useState('')
 
 	const faTrashAlt = icons.faTrashAlt
 	const categoryIcons = []
@@ -41,10 +42,16 @@ export default function ModalAddCategory({ active, setActive, icons }) {
 					description: categoryDescription,
 				})
 			)
+			setErrorMessage('')
 			setCategoryName('')
 			setCategoryDescription('')
 			setSelectedIcon('')
-		} else {
+		} else if (!categoryName && !selectedIcon) {
+			setErrorMessage('Please, choose some icon 👽 and enter some name 🧐')
+		} else if (!categoryName) {
+			setErrorMessage('Please, enter name 🧐')
+		} else if (!selectedIcon) {
+			setErrorMessage('Please, choose some icon 👽')
 		}
 	}
 
@@ -72,6 +79,7 @@ export default function ModalAddCategory({ active, setActive, icons }) {
 					<ModalContent>
 						<ModalClose onClick={() => setActive(false)}>&times;</ModalClose>
 						<form>
+							<TextContent>{errorMessage}</TextContent>
 							<ModalInput
 								onChange={e => onChangeHandler(e)}
 								placeholder="Name"
@@ -93,7 +101,11 @@ export default function ModalAddCategory({ active, setActive, icons }) {
 								{categoryIcons}
 							</Flex>
 							<Flex>
-								<Button onClick={e => handleSubmit(e)} width="80%">
+								<Button
+									onClick={e => handleSubmit(e)}
+									width="80%"
+									margin="0 auto"
+								>
 									Add new category
 								</Button>
 							</Flex>
