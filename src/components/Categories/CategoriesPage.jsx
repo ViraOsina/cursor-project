@@ -10,35 +10,12 @@ import { useEffect, useState } from 'react'
 import Icons from '../Icons'
 
 export default function CategoriesPage() {
-
-	// const dispatch = useDispatch()
-	// const categories = useSelector(state => state.category.categories)
-
-	const state = useSelector(state => state)
-	const stateCategories = useSelector(state => state.category.categories)
-
-	const [categories, setCategories] = useState(stateCategories)
 	const [modalActive, setModalActive] = useState(false)
+	const categories = useSelector(state => state.category.categories)
 
 	const addCategoryHandler = e => {
 		setModalActive(true)
 	}
-
-	useEffect(() => {
-		const data = localStorage.getItem('reduxState')
-		const localCategories = JSON.parse(data).category.categories
-		if (localCategories) {
-			setCategories(localCategories)
-		}
-	}, [])
-
-	useEffect(() => {
-		const data = localStorage.getItem('reduxState')
-		const localCategories = JSON.parse(data).category.categories
-		if (localCategories) {
-			setCategories(localCategories)
-		}
-	}, [state])
 
 	return (
 		<Flex width="90%" margin="auto" direction="column">

@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import App from './App'
-import { store } from './redux/store'
 import { createGlobalStyle } from 'styled-components'
+import persistStore from './redux/store'
+import { PersistGate } from 'redux-persist/integration/react'
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -22,11 +23,15 @@ code {
 }
 `
 
+const { store, persistor } = persistStore()
+
 ReactDOM.render(
 	<Provider store={store}>
 		<GlobalStyle />
 		<Router>
-			<App />
+			<PersistGate loading={null} persistor={persistor}>
+				<App />
+			</PersistGate>
 		</Router>
 	</Provider>,
 

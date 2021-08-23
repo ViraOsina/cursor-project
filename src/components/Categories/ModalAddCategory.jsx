@@ -14,8 +14,6 @@ import { useState } from 'react'
 import { addCategoryAction } from '../../redux/categoryReducer'
 import TextContent from '../StyledComponents/TextContent'
 
-
-
 export default function ModalAddCategory({ active, setActive, icons }) {
 	const dispatch = useDispatch()
 	const [selectedIcon, setSelectedIcon] = useState('')

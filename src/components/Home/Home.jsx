@@ -28,16 +28,6 @@ const AdditionalLink = styled(NavLink)`
 function Home({ dataArr, dataArrIncomes, setData, setIncomes, removeItem }) {
 	const match = useRouteMatch()
 	const [display, setDisplay] = useState('none')
-	const state = useSelector(state => state)
-
-	useEffect(() => {
-		const reduxState = localStorage['reduxState']
-		if (reduxState) {
-			localStorage['reduxState'] = reduxState
-		} else {
-			localStorage['reduxState'] = JSON.stringify(state)
-		}
-	})
 
 	const openModal = () => {
 		setDisplay('block')
