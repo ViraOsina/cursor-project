@@ -10,8 +10,11 @@ import { useEffect, useState } from 'react'
 import Icons from '../Icons'
 
 export default function CategoriesPage() {
-	const state = useSelector(state => state)
 
+	// const dispatch = useDispatch()
+	// const categories = useSelector(state => state.category.categories)
+
+	const state = useSelector(state => state)
 	const stateCategories = useSelector(state => state.category.categories)
 
 	const [categories, setCategories] = useState(stateCategories)
