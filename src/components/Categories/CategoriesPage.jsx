@@ -22,6 +22,15 @@ export default function CategoriesPage() {
 	}
 
 	useEffect(() => {
+		const reduxState = localStorage['reduxState']
+		if (reduxState) {
+			localStorage['reduxState'] = reduxState
+		} else {
+			localStorage['reduxState'] = JSON.stringify(state)
+		}
+	})
+
+	useEffect(() => {
 		const data = localStorage.getItem('reduxState')
 		const localCategories = JSON.parse(data).category.categories
 		if (localCategories) {
@@ -36,10 +45,6 @@ export default function CategoriesPage() {
 			setCategories(localCategories)
 		}
 	}, [state])
-
-	useEffect(() => {
-		localStorage['reduxState'] = JSON.stringify(state)
-	})
 
 	return (
 		<Flex width="90%" margin="auto" direction="column">
