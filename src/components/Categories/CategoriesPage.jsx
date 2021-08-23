@@ -13,7 +13,7 @@ import Icons from '../Icons'
 export default function CategoriesPage() {
 	const dispatch = useDispatch()
 	const categories = useSelector(state => state.category.categories)
-	const [modalActive, setModalActive] = useState(true)
+	const [modalActive, setModalActive] = useState(false)
 
 	const addCategoryHandler = e => {
 		setModalActive(true)

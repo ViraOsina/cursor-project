@@ -31,6 +31,7 @@ const Icons = {
 	UtilityBills: faFaucet,
 	Pets: faCat,
 	faTrashAlt,
+	faPen,
 }
 
 export default Icons
