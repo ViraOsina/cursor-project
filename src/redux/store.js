@@ -7,4 +7,3 @@ export const store = createStore(rootReducer, composeWithDevTools())
 store.subscribe(() => {
 	localStorage['reduxState'] = JSON.stringify(store.getState())
 })
-

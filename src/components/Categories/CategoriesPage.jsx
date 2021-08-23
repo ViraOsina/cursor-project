@@ -22,15 +22,6 @@ export default function CategoriesPage() {
 	}
 
 	useEffect(() => {
-		const reduxState = localStorage['reduxState']
-		if (reduxState) {
-			localStorage['reduxState'] = reduxState
-		} else {
-			localStorage['reduxState'] = JSON.stringify(state)
-		}
-	})
-
-	useEffect(() => {
 		const data = localStorage.getItem('reduxState')
 		const localCategories = JSON.parse(data).category.categories
 		if (localCategories) {
