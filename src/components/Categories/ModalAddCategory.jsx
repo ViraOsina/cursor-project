@@ -13,7 +13,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { addCategoryAction } from '../../redux/categoryReducer'
 import TextContent from '../StyledComponents/TextContent'
-import { useEffect } from 'react'
+
+
 
 export default function ModalAddCategory({ active, setActive, icons }) {
 	const dispatch = useDispatch()
@@ -22,6 +23,7 @@ export default function ModalAddCategory({ active, setActive, icons }) {
 	const [categoryDescription, setCategoryDescription] = useState('')
 	const [errorMessage, setErrorMessage] = useState('')
 	const faTrashAlt = icons.faTrashAlt
+	const faPen = icons.faPen
 	const categoryIcons = []
 
 	function onChangeHandler(e) {
@@ -57,7 +59,7 @@ export default function ModalAddCategory({ active, setActive, icons }) {
 	}
 
 	for (const [iconName, iconValue] of Object.entries(icons)) {
-		if (iconValue !== faTrashAlt) {
+		if (iconValue !== faTrashAlt && iconValue !== faPen) {
 			categoryIcons.push(
 				<Flex width="20%" margin="8px" justify="center" key={iconName}>
 					<Button
