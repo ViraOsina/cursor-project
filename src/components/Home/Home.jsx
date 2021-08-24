@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { NavLink, Route, useRouteMatch } from 'react-router-dom'
 import Charges from './Charges'
 import Incomes from './Incomes'
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
+
 
 const Links = styled.div`
 	display: flex;
@@ -25,17 +24,8 @@ const AdditionalLink = styled(NavLink)`
 	}
 `
 
-function Home({ dataArr, dataArrIncomes, setData, setIncomes, removeItem }) {
+function Home() {
 	const match = useRouteMatch()
-	const [display, setDisplay] = useState('none')
-
-	const openModal = () => {
-		setDisplay('block')
-	}
-
-	const closeModal = () => {
-		setDisplay('none')
-	}
 
 	return (
 		<>
@@ -45,24 +35,10 @@ function Home({ dataArr, dataArrIncomes, setData, setIncomes, removeItem }) {
 			</Links>
 
 			<Route path={`${match.path}/charges`}>
-				<Charges
-					dataArr={dataArr}
-					setData={setData}
-					removeItem={removeItem}
-					openModal={openModal}
-					closeModal={closeModal}
-					display={display}
-				/>
+				<Charges />
 			</Route>
 			<Route path={`${match.path}/incomes`}>
-				<Incomes
-					dataArrIncomes={dataArrIncomes}
-					setIncomes={setIncomes}
-					removeItem={removeItem}
-					openModal={openModal}
-					closeModal={closeModal}
-					display={display}
-				/>
+				<Incomes />
 			</Route>
 		</>
 	)

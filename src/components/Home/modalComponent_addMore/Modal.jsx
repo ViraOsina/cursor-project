@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { closeModalAction} from '../../../redux/homeReducer';
+import { ADD_ITEM } from '../../../redux/actionTypes';
 
 export const Modal = styled.div`
 	position: fixed;
@@ -88,45 +91,32 @@ export const ModalBtn = styled.button`
 `
 
 export default function ModalForm(props) {
-	const [category, setCategory] = useState('Food')
-	const [description, setDesc] = useState('')
-	const [date] = useState(new Date().toString().slice(4, 10))
-	const [money, setMoney] = useState('')
+	const [category, setCategory] = useState('Food');
+	const [description, setDesc] = useState('');
+	const [date] = useState(new Date().toString().slice(4, 10));
+	const [money, setMoney] = useState('');
+	const display = useSelector(state => state.homeReducer.display);
+	const dispach = useDispatch();
+	const categories = useSelector(state => state.category.categories);
+
 
 	const submitBtn = e => {
 		e.preventDefault()
-		props.closeModal()
+		dispach(closeModalAction());
 
-		if (props.target === 'charges') {
-			localStorage.setItem(
-				'DataBase',
-				JSON.stringify([
-					...props.dataArr,
-					{ category, description, date, money },
-				])
-			)
-			props.setData([...props.dataArr, { category, description, date, money }])
-		} else {
-			localStorage.setItem(
-				'DataBaseIncomes',
-				JSON.stringify([
-					...props.dataArrIncomes,
-					{ category, description, date, money },
-				])
-			)
-			props.setIncomes([
-				...props.dataArrIncomes,
-				{ category, description, date, money },
-			])
-		}
+		dispach({
+			type: ADD_ITEM,
+			payload: { category, description, date, money },
+			target: props.target,
+		})
 	}
 
 	return (
-		<Modal display={props.display}>
+		<Modal display={display}>
 			<ModalDialog>
 				<ModalContent>
 					<form action="#">
-						<ModalClose onClick={props.closeModal}>&times;</ModalClose>
+						<ModalClose onClick={() => {dispach(closeModalAction())}}>&times;</ModalClose>
 						<ModalTitle>Add {props.target}</ModalTitle>
 						<ModalSelect
 							onChange={e => {
@@ -136,24 +126,13 @@ export default function ModalForm(props) {
 							required
 							name="category"
 						>
-							{props.target === 'charges' ? (
-								<>
-									<option>Food</option>
-									<option>Restaurants</option>
-									<option>Travel</option>
-									<option>Health</option>
-									<option>Car</option>
-									<option>Home</option>
-									<option>Fun</option>
-								</>
-							) : (
-								<>
-									<option>Salary</option>
-									<option>Bonus</option>
-									<option>Gift</option>
-									<option>Other</option>
-								</>
-							)}
+							{categories.map(category => {
+								return(
+									<option key={category.id}>{category.name}</option>
+								)
+							})}
+							
+
 						</ModalSelect>
 						<ModalInput
 							onChange={e => {

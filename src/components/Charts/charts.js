@@ -24,7 +24,6 @@ for (let i = 0; i < rawData.length; i++) {
   
 }
 
-console.log('data', rawData, chargesCategories)
 
 
 const Chart = () => {

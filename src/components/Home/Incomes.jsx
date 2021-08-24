@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import TableRow from './TableRow';
 import ModalForm from './modalComponent_addMore/Modal';
+import {openModalAction} from '../../redux/homeReducer';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const Table = styled.div`
@@ -50,7 +52,10 @@ const AddMore = styled.button`
     border-radius: 5px;
 `;
 
-export default function Incomes(props) {
+export default function Incomes() {
+    const dispach = useDispatch();
+	const incomesDB = useSelector(state => state.homeReducer.incomesDB);
+
     return(
         <>
             <Filter>
@@ -61,7 +66,7 @@ export default function Incomes(props) {
                         <option>this month</option>
                     </Select>
                 </InputBlock>
-                <AddMore onClick={props.openModal}>Add more</AddMore>
+                <AddMore onClick={() => {dispach(openModalAction())}}>Add more</AddMore>
             </Filter>
             <Table>
                 <span>Category</span>
@@ -70,10 +75,10 @@ export default function Incomes(props) {
                 <span>Money</span>
                 <span>Action</span>
             </Table>
-            {props.dataArrIncomes.map((item, index, arr) => {
-                return <TableRow key={index} removeId={index} removeItem={props.removeItem} data={item} target={arr}/>
+            {incomesDB.map((item, index, arr) => {
+                return <TableRow key={index} removeId={index} data={item} arr={arr} target={'incomes'}/>
         })}
-        <ModalForm target='incomes' display={props.display} closeModal={props.closeModal} setIncomes={props.setIncomes} dataArrIncomes={props.dataArrIncomes}/>
+        <ModalForm target='incomes'/>
     </>
     )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { NavLink, Redirect, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 import logo from './mywallet.png'
@@ -6,8 +6,7 @@ import Home from './components/Home/Home'
 import Chart from './components/Charts/charts'
 import CategoriesPage from './components/Categories/CategoriesPage'
 import PageNotFound from './components/StyledComponents/PageNotFound'
-import TableItems from './components/dataBase'
-import TableItemsIncomes from './components/dataBaseIncomes'
+import { useSelector } from 'react-redux';
 
 
 const Wrapper = styled.div`
@@ -64,34 +63,15 @@ const MoneyHeader = styled.h2`
 `
 
 export default function App() {
-	const [dataArr, setData] = useState(
-		localStorage.DataBase ? JSON.parse(localStorage.DataBase) : TableItems
-	)
-	const [dataArrIncomes, setIncomes] = useState(
-		localStorage.DataBaseIncomes
-			? JSON.parse(localStorage.DataBaseIncomes)
-			: TableItemsIncomes
-	)
-
-	const removeItem = (id, target) => {
-		const filteredArr = target.filter((item, index) => index !== id)
-		console.log(target === dataArr)
-
-		if (target === dataArr) {
-			setData(filteredArr)
-			localStorage.setItem('DataBase', JSON.stringify(filteredArr))
-		} else {
-			setIncomes(filteredArr)
-			localStorage.setItem('DataBaseIncomes', JSON.stringify(filteredArr))
-		}
-	}
+	const chargesDB =  useSelector(state =>  state.homeReducer.chargesDB);
+	const incomesDB = useSelector(state => state.homeReducer.incomesDB);
 
 	const countBalance = () => {
-		const inc = dataArrIncomes.reduce((acc, cur) => {
+		const inc = incomesDB.reduce((acc, cur) => {
 			let bal = acc + parseFloat(cur.money)
 			return +bal.toFixed(2)
 		}, 0)
-		const char = dataArr.reduce((acc, cur) => {
+		const char = chargesDB.reduce((acc, cur) => {
 			let bal = acc + parseFloat(cur.money)
 			return +bal.toFixed(2)
 		}, 0)
@@ -115,13 +95,7 @@ export default function App() {
 				</Balance>
 				<Switch>
 					<Route path="/cursor-project">
-						<Home
-							removeItem={removeItem}
-							dataArr={dataArr}
-							dataArrIncomes={dataArrIncomes}
-							setData={setData}
-							setIncomes={setIncomes}
-						/>
+						<Home />
 						<Redirect to="/cursor-project/charges" />
 					</Route>
 					<Route exact path="/categories" component={CategoriesPage} />

@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Icons from '../Icons';
+import { useDispatch } from 'react-redux';
+import {REMOVE_ITEM} from '../../redux/actionTypes';
 
 const Row = styled.div`
     display: grid;
@@ -9,7 +11,8 @@ const Row = styled.div`
     padding: 10px 20px;
 `;
 
-export default function TableRow({data, removeId, removeItem, target}) {
+export default function TableRow({data, removeId, arr, target}) {
+    const dispach = useDispatch();
     return(
     <Row>
         <span><FontAwesomeIcon icon={Icons[data.category]} /> {data.category}</span>
@@ -17,7 +20,12 @@ export default function TableRow({data, removeId, removeItem, target}) {
         <span>{data.date}</span>
         <span>$ { (parseFloat(data.money)).toFixed(2) }</span>
         <span style={{cursor: 'pointer'}}><FontAwesomeIcon onClick={() => {
-            removeItem(removeId, target)
+            const filteredArr = arr.filter((item, index) => index !== removeId)
+            dispach({
+                type: REMOVE_ITEM,
+                filteredArr,
+                target: target,
+            });
         }} icon={Icons.faTrashAlt} /> <FontAwesomeIcon icon={Icons.faPen} /></span>
     </Row>
     )
