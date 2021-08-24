@@ -31,7 +31,7 @@ export const addCategoryAction = payload => ({
 		name: payload.name,
 		icon: Icons[payload.icon],
 		description: payload.description,
-		date: moment().format('MMM DD'),
+		date: moment().format('DD MMM'),
 		standard: false,
 	},
 })
