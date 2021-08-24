@@ -6,7 +6,7 @@ import Category from './Category'
 import TableRow from '../StyledComponents/TableRow'
 import TableRowItem from '../StyledComponents/TableRowItem'
 import ModalAddCategory from './ModalAddCategory'
-import { useEffect, useState } from 'react'
+import {  useState } from 'react'
 import Icons from '../Icons'
 
 export default function CategoriesPage() {

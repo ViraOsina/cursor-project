@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import TableRow from './TableRow';
 import ModalForm from './modalComponent_addMore/Modal';
+import { useDispatch, useSelector } from 'react-redux';
+import {openModalAction} from '../../redux/homeReducer';
+
 
 
 const Table = styled.div`
@@ -50,8 +53,10 @@ const AddMore = styled.button`
     border-radius: 5px;
 `;
 
-export default function Charges(props) {
-    
+export default function Charges() {
+    const dispach = useDispatch();
+    const chargesDB =  useSelector(state => state.homeReducer.chargesDB);
+
 
     return(
     <>
@@ -63,7 +68,7 @@ export default function Charges(props) {
                     <option>this month</option>
                 </Select>
             </InputBlock>
-            <AddMore onClick={props.openModal}>Add more</AddMore>
+            <AddMore onClick={() => {dispach(openModalAction())}}>Add more</AddMore>
         </Filter>
         <Table>
             <span>Category</span>
@@ -72,10 +77,10 @@ export default function Charges(props) {
             <span>Money</span>
             <span>Action</span>
         </Table>
-        {props.dataArr.map((item, index, arr) => {
-            return <TableRow key={index} removeId={index} removeItem={props.removeItem} data={item} target={arr}/>
+        {chargesDB.map((item, index, arr) => {
+            return <TableRow key={index} removeId={index} data={item} arr={arr} target={'charges'}/>
         })}
-        <ModalForm target='charges' display={props.display} closeModal={props.closeModal} setData={props.setData} dataArr={props.dataArr}/>
+        <ModalForm target='charges'/>
     </>
     )
 }

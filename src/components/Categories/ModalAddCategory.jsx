@@ -9,7 +9,7 @@ import {
 } from '../Home/modalComponent_addMore/Modal'
 import Flex from '../StyledComponents/Flex'
 import Button from '../StyledComponents/Button'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch} from 'react-redux'
 import { useState } from 'react'
 import { addCategoryAction } from '../../redux/categoryReducer'
 import TextContent from '../StyledComponents/TextContent'
