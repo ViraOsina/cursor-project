@@ -1,7 +1,8 @@
-import { OPEN_MODAL, CLOSE_MODAL, REMOVE_ITEM, ADD_ITEM } from './actionTypes'
+import { OPEN_MODAL, CLOSE_MODAL, REMOVE_ITEM, ADD_ITEM, EDIT_ITEM, OPEN_EDIT_MODAL, CLOSE_EDIT_MODAL } from './actionTypes'
 
 const initialState = {
 	display: 'none',
+	displayEdit: 'none',
 	chargesDB: [
 		{
 			category: 'Food',
@@ -56,10 +57,23 @@ export const homeReducer = (state = initialState, action) => {
 				...state,
 				display: 'none'
 			}
+		case OPEN_EDIT_MODAL:
+			state.targetItem = action.targetItem
+			return {
+				...state,
+				displayEdit: 'block',
+				editId: action.id,
+				targetItem: state.targetItem,
+			}
+		case CLOSE_EDIT_MODAL:
+			state.targetItem = undefined;
+			return {
+				...state,
+				displayEdit: 'none'
+			}
 
 		case REMOVE_ITEM:
 			if(action.target === 'charges') {
-				console.log(action.filteredArr)
 				return {
 					...state,
 					chargesDB: action.filteredArr
@@ -71,7 +85,7 @@ export const homeReducer = (state = initialState, action) => {
 					incomesDB: action.filteredArr
 				}
 			}
-			case ADD_ITEM:
+		case ADD_ITEM:
 			if(action.target === 'charges') {
 				return {
 					...state,
@@ -84,6 +98,23 @@ export const homeReducer = (state = initialState, action) => {
 					incomesDB: [...state.incomesDB, action.payload],
 				}
 			}
+		case EDIT_ITEM:
+			const {category, description, date, money} = action.payload;
+			
+			if(action.target === 'charges') {
+				state.chargesDB[state.editId] = {category, description, date, money}
+				return {
+					...state,
+					chargesDB: [...state.chargesDB]
+				}
+			} else {
+					state.incomesDB[state.editId] = {category, description, date, money}
+				return {
+					...state,
+					incomesDB: [...state.incomesDB]
+				}
+			}
+			
 		default:
 			return state
 	}
@@ -95,4 +126,14 @@ export const openModalAction = () => ({
 
 export const closeModalAction = () => ({
 	type: CLOSE_MODAL,
+})
+
+export const openEditModalAction = (id, data) => ({
+	type: OPEN_EDIT_MODAL,
+	id: id,
+	targetItem: data,
+})
+
+export const closeEditModalAction = () => ({
+	type: CLOSE_EDIT_MODAL,
 })
