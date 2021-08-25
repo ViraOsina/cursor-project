@@ -4,6 +4,7 @@ import TableRow from './TableRow';
 import ModalForm from './modalComponent_addMore/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import {openModalAction} from '../../redux/homeReducer';
+import EditModal from './modalComponent_addMore/EditModal';
 
 
 
@@ -56,7 +57,7 @@ const AddMore = styled.button`
 export default function Charges() {
     const dispach = useDispatch();
     const chargesDB =  useSelector(state => state.homeReducer.chargesDB);
-
+    const targetItem = useSelector(state => state.homeReducer.targetItem);
 
     return(
     <>
@@ -81,6 +82,7 @@ export default function Charges() {
             return <TableRow key={index} removeId={index} data={item} arr={arr} target={'charges'}/>
         })}
         <ModalForm target='charges'/>
+        {targetItem ? <EditModal target={'charges'}/> : null}
     </>
     )
 }

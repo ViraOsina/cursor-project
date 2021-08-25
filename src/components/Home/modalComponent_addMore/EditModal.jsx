@@ -83,7 +83,7 @@ export const ModalBtn = styled.button`
 	margin: 0 auto;
 	padding: 5px 20px;
 	height: 40px;
-	background: #26b8ff;
+	background: ${props => props.disabled ? 'grey' : '#26b8ff'};
 	color: white;
 	border: none;
 	outline: none;
@@ -96,6 +96,7 @@ export default function EditModal(props) {
 	const [description, setDesc] = useState(targetItem.description);
 	const [date] = useState(targetItem.date);
 	const [money, setMoney] = useState(targetItem.money);
+
 	const displayEdit = useSelector(state => state.homeReducer.displayEdit);
 	const dispach = useDispatch();
 	const categories = useSelector(state => state.category.categories);
@@ -111,6 +112,8 @@ export default function EditModal(props) {
 			target: props.target,
 		})
 	}
+
+
 
 	return (
 		<Modal display={displayEdit}>
@@ -156,7 +159,7 @@ export default function EditModal(props) {
 							name="money"
 							type="number"
 						/>
-						<ModalBtn onClick={submitBtn}>Update {props.target}</ModalBtn>
+						<ModalBtn  disabled={money ? false : true} onClick={submitBtn}>Update {props.target}</ModalBtn>
 					</form>
 				</ModalContent>
 			</ModalDialog>

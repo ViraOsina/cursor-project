@@ -83,7 +83,7 @@ export const ModalBtn = styled.button`
 	margin: 0 auto;
 	padding: 5px 20px;
 	height: 40px;
-	background: #26b8ff;
+	background: ${props => props.disabled ? 'grey' : '#26b8ff'};
 	color: white;
 	border: none;
 	outline: none;
@@ -155,7 +155,7 @@ export default function ModalForm(props) {
 							name="money"
 							type="number"
 						/>
-						<ModalBtn onClick={submitBtn}>Add</ModalBtn>
+						<ModalBtn disabled={money ? false : true} onClick={submitBtn}>Add</ModalBtn>
 					</form>
 				</ModalContent>
 			</ModalDialog>

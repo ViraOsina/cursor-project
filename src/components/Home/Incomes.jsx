@@ -4,6 +4,7 @@ import TableRow from './TableRow';
 import ModalForm from './modalComponent_addMore/Modal';
 import {openModalAction} from '../../redux/homeReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import EditModal from './modalComponent_addMore/EditModal';
 
 
 const Table = styled.div`
@@ -55,6 +56,7 @@ const AddMore = styled.button`
 export default function Incomes() {
     const dispach = useDispatch();
 	const incomesDB = useSelector(state => state.homeReducer.incomesDB);
+    const targetItem = useSelector(state => state.homeReducer.targetItem);
 
     return(
         <>
@@ -79,6 +81,8 @@ export default function Incomes() {
                 return <TableRow key={index} removeId={index} data={item} arr={arr} target={'incomes'}/>
         })}
         <ModalForm target='incomes'/>
+        {targetItem ? <EditModal target={'incomes'}/> : null}
+
     </>
     )
 }

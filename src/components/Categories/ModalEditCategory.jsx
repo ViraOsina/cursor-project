@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
 	Modal,
 	ModalClose,
@@ -9,7 +9,7 @@ import {
 } from '../Home/modalComponent_addMore/Modal'
 import Flex from '../StyledComponents/Flex'
 import Button from '../StyledComponents/Button'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { editCategoryAction } from '../../redux/categoryReducer'
 import TextContent from '../StyledComponents/TextContent'
