@@ -13,7 +13,7 @@ export default function CategoriesPage() {
 	const [modalActive, setModalActive] = useState(false)
 	const categories = useSelector(state => state.category.categories)
 
-	const addCategoryHandler = e => {
+	const addCategoryButtonHandler = () => {
 		setModalActive(true)
 	}
 
@@ -21,7 +21,7 @@ export default function CategoriesPage() {
 		<Flex width="90%" margin="auto" direction="column">
 			<Flex height="3em" justify="space-between">
 				<Title>Categories</Title>
-				<Button onClick={() => addCategoryHandler()} width="10em">
+				<Button onClick={() => addCategoryButtonHandler()} width="10em">
 					Add more
 				</Button>
 			</Flex>
