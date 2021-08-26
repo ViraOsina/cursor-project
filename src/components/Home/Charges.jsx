@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import TableRow from './TableRow';
 import ModalForm from './modalComponent_addMore/Modal';
@@ -29,6 +29,17 @@ const InputBlock = styled.div`
 
 `;
 
+export const Input = styled.input`
+	width: 100px;
+    padding: 5px;
+    margin: 0 10px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+	border: none;
+	font-size: 18px;
+	text-align: center;
+	outline: 0;
+`;
+
 const Span = styled.span`
     font-size: 18px;
     font-weight: 500;
@@ -39,9 +50,11 @@ const Span = styled.span`
 
 const Select = styled.select`
     font-size: 18px;
+    padding: 5px;
     border: none;
     outline: none;
     color: #5f5f5f;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 `;
 
 const AddMore = styled.button`
@@ -58,16 +71,38 @@ export default function Charges() {
     const dispach = useDispatch();
     const chargesDB =  useSelector(state => state.homeReducer.chargesDB);
     const targetItem = useSelector(state => state.homeReducer.targetItem);
+    const categories = useSelector(state => state.category.categories);
+
+    const [selectCategory, setSelectCategory] = useState('');
+    const [inputMoney, setInputMoney] = useState('');
+    const filteredChargesArr = selectCategory && inputMoney ? chargesDB.filter(item => item.category === selectCategory && item.money <= inputMoney)
+     : selectCategory ? chargesDB.filter(item => item.category === selectCategory) 
+     : inputMoney ? chargesDB.filter(item => item.money <= inputMoney) : chargesDB;
 
     return(
     <>
         <Filter>
             <InputBlock>
                 <Span>My Charges</Span>
-                <Select >
-                    <option>this week</option>
-                    <option>this month</option>
+                <Select value={selectCategory} onChange={(e) => {
+                    setSelectCategory(e.target.value);
+                }}> <option value={''}>Select category</option>
+                    {categories.map(category => {
+                        return(
+                            <option key={category.id}>{category.name}</option>
+                        )
+					})}
                 </Select>
+                <Input
+                    onChange={e => {
+                        setInputMoney(e.target.value)
+                    }}
+                    value={inputMoney}
+                    required
+                    placeholder="Money"
+                    name="money"
+                    type="number"
+                />
             </InputBlock>
             <AddMore onClick={() => {dispach(openModalAction())}}>Add more</AddMore>
         </Filter>
@@ -78,7 +113,7 @@ export default function Charges() {
             <span>Money</span>
             <span>Action</span>
         </Table>
-        {chargesDB.map((item, index, arr) => {
+        {filteredChargesArr.map((item, index, arr) => {
             return <TableRow key={index} removeId={index} data={item} arr={arr} target={'charges'}/>
         })}
         <ModalForm target='charges'/>

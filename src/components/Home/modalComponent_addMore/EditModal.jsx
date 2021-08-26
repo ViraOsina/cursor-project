@@ -49,7 +49,7 @@ export const ModalTitle = styled.div`
 	text-align: center;
 	font-size: 22px;
 	text-transform: uppercase;
-`
+`;
 
 export const ModalInput = styled.input`
 	display: block;
@@ -62,7 +62,7 @@ export const ModalInput = styled.input`
 	font-size: 18px;
 	text-align: center;
 	outline: 0;
-`
+`;
 
 export const ModalSelect = styled.select`
 	display: block;
