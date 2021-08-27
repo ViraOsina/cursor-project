@@ -14,7 +14,8 @@ const ChargesChart = (props) => {
     }
 
     const labels = Object.values(props);
-    const uniqueLabels = labels.filter((item, index) => labels.indexOf(item) === index);
+    let uniqueLabels = [0];
+    uniqueLabels = labels.filter((item, index) => labels.indexOf(item) === index);
 
     function backgroundColor() {
         let backgroundColors = [];

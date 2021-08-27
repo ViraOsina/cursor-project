@@ -1,19 +1,12 @@
 import './App.css';
 import React, {useState} from 'react';
-import {NavLink, Redirect, Route, Switch, useRouteMatch} from 'react-router-dom';
+import {NavLink, Route, Switch, useRouteMatch} from 'react-router-dom';
 import styled from 'styled-components';
 import logo from './mywallet.png';
-<<<<<<< HEAD
-import Home from './components/Home/Home';
-import Chart from './components/Charts/charts'
-import Categories from './components/Categories/Categories';
-import PageNotFound from './components/StyledComponents/PageNotFound';
-=======
 import Home from './components/Home/Home'
 import Chart from './components/Charts/charts'
 import Categories from './components/Categories/Categories'
 import PageNotFound from './components/StyledComponents/PageNotFound'
->>>>>>> 48418ed365ae55f143b83776b0faaaa03871aa21
 import TableItems from './components/dataBase';
 
 
