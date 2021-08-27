@@ -1,113 +1,47 @@
-import React from 'react';
-import styled from 'styled-components';
-import {NavLink, Route, useRouteMatch} from 'react-router-dom';
-import Charges from './Charges';
-import Incomes from './Incomes';
-import ModalForm from './modalComponent_addMore/Modal';
-import { useState } from 'react';
+import React from 'react'
+import styled from 'styled-components'
+import { NavLink, Route, useRouteMatch } from 'react-router-dom'
+import Charges from './Charges'
+import Incomes from './Incomes'
+
 
 const Links = styled.div`
-    display: flex;
-
-`;
+	display: flex;
+`
 
 const AdditionalLink = styled(NavLink)`
-    display: inline-block;
-    width: 200px;
-    text-decoration: none;
-    color: '#000000';
-    text-align: center;
-    padding: 5px;
-    :hover {
-        color: #26b8ff;
-    }
-    &.active {
-        color: #26b8ff;
-      }
-`;
+	display: inline-block;
+	width: 200px;
+	text-decoration: none;
+	color: '#000000';
+	text-align: center;
+	padding: 5px;
+	:hover {
+		color: #26b8ff;
+	}
+	&.active {
+		color: #26b8ff;
+	}
+`
 
-const Filter = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
+function Home() {
+	const match = useRouteMatch()
 
-`;
+	return (
+		<>
+			<Links>
+				<AdditionalLink to={`${match.url}/charges`}>Charges</AdditionalLink>
+				<AdditionalLink to={`${match.url}/incomes`}>Incomes</AdditionalLink>
+			</Links>
 
-const InputBlock = styled.div`
-
-`;
-
-const Span = styled.span`
-    font-size: 18px;
-    font-weight: 500;
-    display: inline-block;
-    margin: 25px 10px 25px 0;  
-    color: #5f5f5f;
-`;
-
-const Select = styled.select`
-    font-size: 18px;
-    border: none;
-    outline: none;
-    color: #5f5f5f;
-`;
-
-const AddMore = styled.button`
-    height: 40px;
-    padding: 0 20px;
-    background: #26b8ff;
-    color: white;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-`;
-
-
-
-
-function Home({dataArr, setData, removeItem}) {
-    const match = useRouteMatch();
-    const [display, setDisplay] = useState('none');
-
-    
-
-    const openModal = () => {
-        setDisplay('block');
-    };
-
-    const closeModal = () => {
-        setDisplay('none')
-    };
-
-    return(
-        <>
-            <Links>
-                <AdditionalLink to={`${match.url}/charges`}>Charges</AdditionalLink>
-                <AdditionalLink to={`${match.url}/incomes`}>Incomes</AdditionalLink>
-                
-            </Links>
-            <Filter>
-                <InputBlock>
-                    <Span>My Charges</Span>
-                    <Select >
-                        <option>this week</option>
-                        <option>this month</option>
-                    </Select>
-                </InputBlock>
-                <AddMore onClick={openModal}>Add more</AddMore>
-            </Filter>
-
-            <Route path={`${match.path}/charges`}>
-                <Charges data={dataArr} removeItem={removeItem}/>
-            </Route>
-            <Route path={`${match.path}/incomes`}>
-                <Incomes data={dataArr}/>
-            </Route>
-            <ModalForm display={display} closeModal={closeModal} setData={setData} dataArr={dataArr} />
-        </>
-    )
+			<Route path={`${match.path}/charges`}>
+				<Charges />
+			</Route>
+			<Route path={`${match.path}/incomes`}>
+				<Incomes />
+			</Route>
+		</>
+	)
 }
 
-export default Home;
+export default Home

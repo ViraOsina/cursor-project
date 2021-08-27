@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { closeModalAction} from '../../../redux/homeReducer';
-import { ADD_ITEM } from '../../../redux/actionTypes';
+import { closeEditModalAction} from '../../../redux/homeReducer';
+import { EDIT_ITEM } from '../../../redux/actionTypes';
 
 export const Modal = styled.div`
 	position: fixed;
@@ -49,7 +49,7 @@ export const ModalTitle = styled.div`
 	text-align: center;
 	font-size: 22px;
 	text-transform: uppercase;
-`
+`;
 
 export const ModalInput = styled.input`
 	display: block;
@@ -62,7 +62,7 @@ export const ModalInput = styled.input`
 	font-size: 18px;
 	text-align: center;
 	outline: 0;
-`
+`;
 
 export const ModalSelect = styled.select`
 	display: block;
@@ -90,34 +90,38 @@ export const ModalBtn = styled.button`
 	border-radius: 5px;
 `
 
-export default function ModalForm(props) {
-	const [category, setCategory] = useState('Food');
-	const [description, setDesc] = useState('');
-	const [date] = useState(new Date().toString().slice(4, 10));
-	const [money, setMoney] = useState('');
-	const display = useSelector(state => state.homeReducer.display);
+export default function EditModal(props) {
+	const targetItem = useSelector(state => state.homeReducer.targetItem);
+	const [category, setCategory] = useState(targetItem.category);
+	const [description, setDesc] = useState(targetItem.description);
+	const [date] = useState(targetItem.date);
+	const [money, setMoney] = useState(targetItem.money);
+
+	const displayEdit = useSelector(state => state.homeReducer.displayEdit);
 	const dispach = useDispatch();
 	const categories = useSelector(state => state.category.categories);
 
 
 	const submitBtn = e => {
 		e.preventDefault()
-		dispach(closeModalAction());
+		dispach(closeEditModalAction());
 
 		dispach({
-			type: ADD_ITEM,
+			type: EDIT_ITEM,
 			payload: { category, description, date, money },
 			target: props.target,
 		})
 	}
 
+
+
 	return (
-		<Modal display={display}>
+		<Modal display={displayEdit}>
 			<ModalDialog>
 				<ModalContent>
 					<form action="#">
-						<ModalClose onClick={() => {dispach(closeModalAction())}}>&times;</ModalClose>
-						<ModalTitle>Add {props.target}</ModalTitle>
+						<ModalClose onClick={() => {dispach(closeEditModalAction())}}>&times;</ModalClose>
+						<ModalTitle>Edit {props.target}</ModalTitle>
 						<ModalSelect
 							onChange={e => {
 								setCategory(e.target.value)
@@ -155,7 +159,7 @@ export default function ModalForm(props) {
 							name="money"
 							type="number"
 						/>
-						<ModalBtn disabled={money ? false : true} onClick={submitBtn}>Add</ModalBtn>
+						<ModalBtn  disabled={money ? false : true} onClick={submitBtn}>Update {props.target}</ModalBtn>
 					</form>
 				</ModalContent>
 			</ModalDialog>

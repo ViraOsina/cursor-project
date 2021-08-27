@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const StyledSpan = styled.span`
-	color: ${({ color }) => color || 'white'};
+	color: ${({ color }) => color || 'black'};
 	text-decoration: ${({ decoration }) => decoration || 'none'};
 	font-size: ${({ fSize }) => fSize || '1em'};
 	width: ${({ width }) => width || '100%'};

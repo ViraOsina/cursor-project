@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faUtensils,
-    faPen,
-    faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import Icons from '../Icons';
+import { useDispatch } from 'react-redux';
+import { REMOVE_ITEM } from '../../redux/actionTypes';
+import { openEditModalAction } from '../../redux/homeReducer';
 
 const Row = styled.div`
     display: grid;
@@ -13,19 +12,32 @@ const Row = styled.div`
     padding: 10px 20px;
 `;
 
-export default function TableRow({data, removeId, removeItem}) {
-    return(
-    <Row>
-        
-        <span><FontAwesomeIcon icon={faUtensils} /> {data.category}</span>
-        <span>{data.description}</span>
-        <span>{data.date}</span>
-        <span>$ { (parseFloat(data.money)).toFixed(2) }</span>
-        <span><FontAwesomeIcon onClick={() => {
-            removeItem(removeId)
-        }} icon={faTrashAlt} /> <FontAwesomeIcon icon={faPen} /></span>
-    </Row>
+export default function TableRow({data, removeId, arr, target}) {
+    const dispatch = useDispatch();
 
-    )
+    return (
+        <>
+            <Row>
+                <span><FontAwesomeIcon icon={Icons[data.category]} /> {data.category}</span>
+                <span>{data.description}</span>
+                <span>{data.date}</span>
+                <span>$ { (parseFloat(data.money)).toFixed(2) }</span>
+                <span style={{cursor: 'pointer'}}>
+                    <FontAwesomeIcon onClick={() => {
+                        const filteredArr = arr.filter((item, index) => index !== removeId)
+                        dispatch({
+                            type: REMOVE_ITEM,
+                            filteredArr,
+                            target: target,
+                        });
+                        }} 
+                        icon={Icons.faTrashAlt}
+                    /> <FontAwesomeIcon 
+                        icon={Icons.faPen}
+                        onClick={() => dispatch(openEditModalAction(removeId, data))}
+                /></span>        
+            </Row>
+        </>
+    ) 
 }
 
