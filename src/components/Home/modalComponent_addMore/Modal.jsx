@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { closeModalAction} from '../../../redux/homeReducer';
 import { ADD_ITEM } from '../../../redux/actionTypes';
+import moment from 'moment';
 
 export const Modal = styled.div`
 	position: fixed;
@@ -93,12 +94,12 @@ export const ModalBtn = styled.button`
 export default function ModalForm(props) {
 	const [category, setCategory] = useState('Food');
 	const [description, setDesc] = useState('');
-	const [date] = useState(new Date().toString().slice(4, 10));
+	const [date] = useState(moment().format('l'));
 	const [money, setMoney] = useState('');
+	const [milliseconds] = useState(new Date().getTime());
 	const display = useSelector(state => state.homeReducer.display);
 	const dispach = useDispatch();
 	const categories = useSelector(state => state.category.categories);
-
 
 	const submitBtn = e => {
 		e.preventDefault()
@@ -106,7 +107,7 @@ export default function ModalForm(props) {
 
 		dispach({
 			type: ADD_ITEM,
-			payload: { category, description, date, money },
+			payload: { category, description, date, money, milliseconds },
 			target: props.target,
 		})
 	}

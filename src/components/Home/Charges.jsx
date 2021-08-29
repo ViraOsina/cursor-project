@@ -5,7 +5,8 @@ import ModalForm from './modalComponent_addMore/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModalAction } from '../../redux/homeReducer';
 import EditModal from './modalComponent_addMore/EditModal';
-
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 
 const Table = styled.div`
@@ -68,7 +69,27 @@ const AddMore = styled.button`
     border-radius: 5px;
 `;
 
-export default function Charges() {
+const FilterBtn = styled.button`
+    padding: 5px;
+    margin: 0 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    color: #5f5f5f;
+	text-align: center;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background-color: white;
+`;
+
+
+
+const Calendars = styled(Calendar)`
+    position: absolute;
+    display: ${props => props.display ? 'block' : 'none'};
+`;
+
+export default function Charges(props) {
     const dispach = useDispatch();
     const chargesDB = useSelector(state => state.homeReducer.chargesDB);
     const targetItem = useSelector(state => state.homeReducer.targetItem);
@@ -77,6 +98,8 @@ export default function Charges() {
     const [moneySort, setMoneySort] = useState('');
     const [selectCategory, setSelectCategory] = useState('');
     const [inputMoney, setInputMoney] = useState('');
+    const [inputMonth, setMonth] = useState();
+    const [inputRange, setRange] = useState();
     let filteredChargesArr = [...chargesDB];
 
 
@@ -100,7 +123,11 @@ export default function Charges() {
         : inputMoney ? chargesDB.filter(item => item.money <= inputMoney) : filteredChargesArr;
 
 
+    filteredChargesArr = inputMonth ? filteredChargesArr.filter(item => inputMonth.getMonth() === new Date(item.milliseconds).getMonth()) : filteredChargesArr;
 
+    filteredChargesArr = inputRange ? filteredChargesArr.filter(item => inputRange[0].getDate() <= new Date(item.milliseconds).getDate() 
+        && inputRange[1].getDate() >= new Date(item.milliseconds).getDate()) : filteredChargesArr;
+    
     return (
         <>
             <Filter>
@@ -118,14 +145,24 @@ export default function Charges() {
                     <Input
                         onChange={e => {
                             setInputMoney(e.target.value)
-
                         }}
                         value={inputMoney}
-                        required
                         placeholder="Money"
                         name="money"
                         type="number"
                     />
+                    <FilterBtn onClick={() => props.setDisplay(!props.display)}>Select date</FilterBtn>
+                    <FilterBtn onClick={() => {setMonth(); setRange()}}>Reset date</FilterBtn>
+                    
+                      <Calendars
+                        display={props.display}
+                        returnValue={'range'}
+                        selectRange={true}
+                        onChange={value => {setRange(value)}}
+                        onClickMonth={value => {setRange();setMonth(value)}}
+                        maxDate={new Date()}
+                        defaultView={'year'}/> 
+                    
                 </InputBlock>
                 <AddMore onClick={() => { dispach(openModalAction()) }}>Add more</AddMore>
             </Filter>
