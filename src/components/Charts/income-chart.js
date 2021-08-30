@@ -11,25 +11,22 @@ function randomColor() {
     return `hsl(${h}, ${s}%, ${l}%)`;
 }
 
-const IncomeChart = () => {
-
-const labels = ['category1', 'category2', 'category3', 'category4', 'category5', 'category6', 'category7'];
+const IncomeChart = ({incomeLabels, incomeData}) => {
 
 function backgroundColor() {
     let backgroundColors = [];
-    for(let i = 0; i < labels.length; i++) {
+    for(let i = 0; i < incomeLabels.length; i++) {
         backgroundColors = [...backgroundColors, randomColor()];
     }
     return backgroundColors;
 }
 
 const data = {
-    labels: labels,
+    labels: incomeLabels,
     datasets: [{
       label: 'Income by category',
-      data: [65, 59, 80, 81, 56, 55, 40],
+      data: incomeData,
       backgroundColor: backgroundColor(),
-      
     }]
   };
 
@@ -42,20 +39,20 @@ const data = {
           options={{
             plugins: {
                 legend: {
-                    display: true,
+                    display: false,
                     position:'bottom',
-                    labels: labels,
                     
-                },
-                title:{
-                    display:true,
-                    text:'Income by category',
-                    fontSize:20
-                },
-                
-            },
-            responsive: true           
-           
+                  },
+
+                  title:{
+                      display:true,
+                      text:'Income by category',
+                      fontSize:20
+                  },
+                   responsive: true  
+              },
+                      
+              maintainAspectRatio: false,
           }}
         />
       </Flex>

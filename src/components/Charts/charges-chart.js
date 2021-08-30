@@ -3,8 +3,8 @@ import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import Flex from '../StyledComponents/Flex'
 
-const ChargesChart = (props) => {
-
+const ChargesChart = ({chargesLabels, chargesData}) => {
+    
     function randomColor() {
         const h = Math.random() * 360;
         const s = Math.random() * (100 - 60) + 60;
@@ -13,23 +13,20 @@ const ChargesChart = (props) => {
         return `hsl(${h}, ${s}%, ${l}%)`;
     }
 
-    const labels = Object.values(props);
-    let uniqueLabels = [0];
-    uniqueLabels = labels.filter((item, index) => labels.indexOf(item) === index);
-
+       
     function backgroundColor() {
         let backgroundColors = [];
-        for(let i = 0; i < uniqueLabels.length; i++) {
+        for(let i = 0; i < chargesLabels.length; i++) {
             backgroundColors = [...backgroundColors, randomColor()];
         }
         return backgroundColors;
     }
 
     const data = {
-        labels: uniqueLabels,
+        labels: chargesLabels,
         datasets: [{
         label: 'Charges by category',
-        data: [65, 59, 80, 81, 56, 55, 40],
+        data: chargesData,
         backgroundColor: backgroundColor(),
         }]
     };

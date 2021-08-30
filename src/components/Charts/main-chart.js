@@ -11,13 +11,10 @@ const ChartFlex = styled(Flex)`
 `;
 
 
-const MainChart = ({chargesDates, chargesData}) => {
-//ordering dates   
-//const dates = chargesDates.map(x => Date.parse(x)).sort((a,b) => a-b);
-
+const MainChart = ({chargesData, incomeData, dates}) => {
 
 const state = {
-  labels:  chargesDates,
+  labels:  dates,
   datasets: [
     {
       label: 'Income',
@@ -26,7 +23,7 @@ const state = {
       backgroundColor: 'rgba(253,178,1,1)',
       borderColor: 'rgba(253,178,1,1)',
       borderWidth: 2,
-      data: [1, 150, 52, 15, 10]
+      data: incomeData.map(x=>+x)
     },
     {
         label: 'Expenses',
