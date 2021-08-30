@@ -1,24 +1,12 @@
-<<<<<<< HEAD
-import './App.css';
-import React, {useState} from 'react';
-import {NavLink, Route, Switch, useRouteMatch} from 'react-router-dom';
-import styled from 'styled-components';
-import logo from './mywallet.png';
-=======
 import React from 'react'
 import { NavLink, Redirect, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 import logo from './mywallet.png'
->>>>>>> upstream/master
 import Home from './components/Home/Home'
 import Chart from './components/Charts/charts'
 import CategoriesPage from './components/Categories/CategoriesPage'
 import PageNotFound from './components/StyledComponents/PageNotFound'
-<<<<<<< HEAD
-import TableItems from './components/dataBase';
-=======
 import { useSelector } from 'react-redux';
->>>>>>> upstream/master
 
 
 const Wrapper = styled.div`
