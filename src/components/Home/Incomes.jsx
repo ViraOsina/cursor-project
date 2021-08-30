@@ -23,7 +23,7 @@ const Filter = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-
+    margin-top: 10px;
 `;
 
 const InputBlock = styled.div`
@@ -62,7 +62,7 @@ const Select = styled.select`
 const AddMore = styled.button`
     height: 40px;
     padding: 0 20px;
-    background: #26b8ff;
+    background: #277297;
     color: white;
     border: none;
     outline: none;

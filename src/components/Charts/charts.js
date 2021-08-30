@@ -9,7 +9,8 @@ import { useSelector } from 'react-redux';
 //import TableItemsIncomes from '../dataBaseIncomes'
 
 const ColumnFlex = styled(Flex)`
-  flex-direction:column
+  flex-direction:column;
+  background-color: rgba(41,126,166, 0.3)
 `;
 
 const Chart = () => {
@@ -104,6 +105,7 @@ const Chart = () => {
             chargesData = {charges} 
             incomeData = {incomes} 
             dates = {sortedDates}/>
+
           <Flex>
             <IncomeChart incomeLabels = {uniqueIncomeCategories} incomeData = {groupedIncomes}/>
             <ChargesChart chargesLabels = {uniqueChargesCategories} chargesData = {groupedCharges}/>

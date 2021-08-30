@@ -7,6 +7,7 @@ import Chart from './components/Charts/charts'
 import CategoriesPage from './components/Categories/CategoriesPage'
 import PageNotFound from './components/StyledComponents/PageNotFound'
 import { useSelector } from 'react-redux';
+import background from './low-poly-grid-haikei.svg'
 
 
 const Wrapper = styled.div`
@@ -44,19 +45,22 @@ const Logo = styled.img`
 
 const Content = styled.div`
 	width: 100%;
+	background-image: url(${background});
+	background-repeat: no-repeat;
 `
 
 const Balance = styled.div`
-	height: 160px;
+	height: 100px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
 	justify-content: center;
+	color: white;
 `
 
 const BalanceHeader = styled.h3`
 	margin: 10px 20px;
-	color: #5f5f5f;
+	color: #b3abab;
 `
 const MoneyHeader = styled.h2`
 	margin: 0 20px;

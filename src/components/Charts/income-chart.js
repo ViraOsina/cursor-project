@@ -1,7 +1,15 @@
 import React from 'react';
 //npm install --save react-chartjs-2 chart.js
 import { Bar } from 'react-chartjs-2';
-import Flex from '../StyledComponents/Flex'
+import Flex from '../StyledComponents/Flex';
+import styled from 'styled-components';
+
+const DesignedFlex = styled(Flex)`
+  &:hover {
+    background-color: rgba(132,125,115,0.1)
+  }
+`;
+
 
 function randomColor() {
     const h = Math.random() * 360;
@@ -32,7 +40,7 @@ const data = {
 
 
     return (
-      <Flex>
+      <DesignedFlex>
         <Bar
           data={data}
           
@@ -55,7 +63,7 @@ const data = {
               maintainAspectRatio: false,
           }}
         />
-      </Flex>
+      </DesignedFlex>
     );
 }
 
