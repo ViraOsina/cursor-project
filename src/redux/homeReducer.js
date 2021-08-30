@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { OPEN_MODAL, CLOSE_MODAL, REMOVE_ITEM, ADD_ITEM, EDIT_ITEM, OPEN_EDIT_MODAL, CLOSE_EDIT_MODAL } from './actionTypes'
 
 const initialState = {
@@ -7,19 +8,22 @@ const initialState = {
 		{
 			category: 'Food',
 			description: "All my food",
-			date: '22 Aug',
+			date: moment().subtract(5, 'days').format('l'),
+			milliseconds: 1629752400000,
 			money: 25,
 		},
 		{
 			category: 'Travel',
 			description: "buy a tent",
-			date: '15 May',
+			date: moment().subtract(14, 'days').subtract(3, 'month').format('l'),
+			milliseconds: 1621026000000,
 			money: 180,
 		},
 		{
 			category: 'Health',
 			description: "Medicine",
-			date: '27 Mar',
+			date: moment().subtract(2, 'days').subtract(5, 'month').format('l'),
+			milliseconds: 1616796000000,
 			money: 13,
 		},
 	],
@@ -27,19 +31,22 @@ const initialState = {
 		{
 			category: 'Salary',
 			description: "",
-			date: '22 Aug',
+			date: moment().subtract(5, 'days').format('l'),
+			milliseconds: 1629752400000,
 			money: 2300,
 		},
 		{
 			category: 'Gift',
 			description: "",
-			date: '15 May',
+			date: moment().subtract(14, 'days').subtract(3, 'month').format('l'),
+			milliseconds: 1621026000000,
 			money: 200,
 		},
 		{
 			category: 'Bonus',
 			description: "",
-			date: '27 Mar',
+			date: moment().subtract(2, 'days').subtract(5, 'month').format('l'),
+			milliseconds: 1616796000000,
 			money: 350,
 		},
 	],

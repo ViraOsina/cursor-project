@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { NavLink, Route, useRouteMatch } from 'react-router-dom'
 import Charges from './Charges'
@@ -26,6 +26,7 @@ const AdditionalLink = styled(NavLink)`
 
 function Home() {
 	const match = useRouteMatch()
+	const [display, setDisplay] = useState(false);
 
 	return (
 		<>
@@ -35,10 +36,10 @@ function Home() {
 			</Links>
 
 			<Route path={`${match.path}/charges`}>
-				<Charges />
+				<Charges display={display} setDisplay={setDisplay} />
 			</Route>
 			<Route path={`${match.path}/incomes`}>
-				<Incomes />
+				<Incomes display={display} setDisplay={setDisplay} />
 			</Route>
 		</>
 	)
