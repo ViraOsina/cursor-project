@@ -1,21 +1,22 @@
 {
   "files": {
-    "main.js": "/cursor-project/static/js/main.8fe4bd38.chunk.js",
-    "main.js.map": "/cursor-project/static/js/main.8fe4bd38.chunk.js.map",
+    "main.js": "/cursor-project/static/js/main.2d9bf966.chunk.js",
+    "main.js.map": "/cursor-project/static/js/main.2d9bf966.chunk.js.map",
     "runtime-main.js": "/cursor-project/static/js/runtime-main.3323afe1.js",
     "runtime-main.js.map": "/cursor-project/static/js/runtime-main.3323afe1.js.map",
     "static/css/2.8cebfa1f.chunk.css": "/cursor-project/static/css/2.8cebfa1f.chunk.css",
-    "static/js/2.913bbba8.chunk.js": "/cursor-project/static/js/2.913bbba8.chunk.js",
-    "static/js/2.913bbba8.chunk.js.map": "/cursor-project/static/js/2.913bbba8.chunk.js.map",
+    "static/js/2.5fbd5c8a.chunk.js": "/cursor-project/static/js/2.5fbd5c8a.chunk.js",
+    "static/js/2.5fbd5c8a.chunk.js.map": "/cursor-project/static/js/2.5fbd5c8a.chunk.js.map",
     "index.html": "/cursor-project/index.html",
     "static/css/2.8cebfa1f.chunk.css.map": "/cursor-project/static/css/2.8cebfa1f.chunk.css.map",
-    "static/js/2.913bbba8.chunk.js.LICENSE.txt": "/cursor-project/static/js/2.913bbba8.chunk.js.LICENSE.txt",
+    "static/js/2.5fbd5c8a.chunk.js.LICENSE.txt": "/cursor-project/static/js/2.5fbd5c8a.chunk.js.LICENSE.txt",
+    "static/media/low-poly-grid-haikei.c5b1fb6e.svg": "/cursor-project/static/media/low-poly-grid-haikei.c5b1fb6e.svg",
     "static/media/mywallet.5bbd8db1.png": "/cursor-project/static/media/mywallet.5bbd8db1.png"
   },
   "entrypoints": [
     "static/js/runtime-main.3323afe1.js",
     "static/css/2.8cebfa1f.chunk.css",
-    "static/js/2.913bbba8.chunk.js",
-    "static/js/main.8fe4bd38.chunk.js"
+    "static/js/2.5fbd5c8a.chunk.js",
+    "static/js/main.2d9bf966.chunk.js"
   ]
 }
