@@ -16,7 +16,7 @@ const ColumnFlex = styled(Flex)`
 const Chart = () => {
   const chargesDB = useSelector(state => state.homeReducer.chargesDB);
   const incomesDB = useSelector(state => state.homeReducer.incomesDB);
-
+  
   //console.log(TableItems, TableItemsIncomes)
 
   let chargesSum = [];
@@ -50,65 +50,59 @@ const Chart = () => {
   const sortedDates = [...new Set(dates)].map(x => new Date(x).toLocaleDateString())
 
   //income and charges in chronological order
-  let incomes = [];
-  let charges = [];
+  let incomesByDate = [];
+  let chargesByDate = [];
 
   for (let i = 0; i < sortedDates.length; i++) {
-    for (let j = 0; j < incomeDates.length; j++) {
-      let nullIncome = 0;
-      if (incomesDB[j].date === sortedDates[i]) {
-        nullIncome = incomesDB[j].money + nullIncome;
-        incomes[i] = nullIncome;
-      }
-    }
-    for (let j = 0; j < chargesDates.length; j++) {
-      let nullCharges = 0;
-      if (chargesDB[j].date === sortedDates[i]) {
-        nullCharges = chargesDB[j].money + nullCharges;
-        charges[i] = nullCharges;
-      }
-    }
-  }
+    const incomeData = [...incomesDB];
+    const reducer = (a, b) => a + b;
+    const elementIncome = incomeData.filter(income => income.date === sortedDates[i])
+                    .map(income => +income.money)
+                    .reduce(reducer);
+    incomesByDate.push(elementIncome);
 
-  //sorted data for incomes and charges
+    const chargesData = [...chargesDB];
+    const elementCharges = chargesData.filter(charge => charge.date === sortedDates[i])
+                    .map(charge => +charge.money)
+                    .reduce(reducer);
+    chargesByDate.push(elementCharges);
+  }
+  
+  //sorted data by categories for incomes and charges
   const uniqueIncomeCategories = [...new Set(incomeCategories)];
   const uniqueChargesCategories = [...new Set(chargesCategories)];
   let groupedIncomes = [];
   let groupedCharges = [];
 
-  for (let i = 0; i < incomeCategories.length; i++) {
-    for (let j = 0; j < incomeSum.length; j++) {
+  for (let i = 0; i < uniqueIncomeCategories.length; i++) {
+    const incomeData = [...incomesDB];
+    const reducer = (a, b) => a + b;
+    const elementIncome = incomeData.filter(income => income.category === uniqueIncomeCategories[i])
+                    .map(income => +income.money)
+                    .reduce(reducer);
+    groupedIncomes.push(elementIncome);
+  }
+  
+  for (let i = 0; i < uniqueChargesCategories.length; i++) {
+    const chargesData = [...chargesDB];
+    const reducer = (a, b) => a + b;
+    const elementCharges = chargesData.filter(charge => charge.category === uniqueChargesCategories[i])
+                    .map(charge => +charge.money)
+                    .reduce(reducer);
+    groupedCharges.push(elementCharges);
+  }
       
-      if (incomesDB[j].category === uniqueIncomeCategories[i]) {
-        let nullIncome = 0;
-        nullIncome = +incomesDB[j].money + nullIncome;
-        groupedIncomes[i] = nullIncome;
-        console.log(groupedIncomes)
-      }
-    }
-  }
-
-  for(let i = 0; i < uniqueChargesCategories.length; i++){
-    for (let j = 0; j < chargesSum.length; j++) {
-      let nullCharges = 0;
-      if (chargesDB[j].category === uniqueChargesCategories[i]) {
-        nullCharges = +chargesDB[j].money + nullCharges;
-        groupedCharges[i] = nullCharges;
-      }
-    }
-  }
-
-    return (
+  return (
       <div>
         <ColumnFlex>
           <MainChart 
-            chargesData = {charges} 
-            incomeData = {incomes} 
+            chargesData = {chargesByDate.flat()} 
+            incomeData = {incomesByDate.flat()} 
             dates = {sortedDates}/>
 
           <Flex>
-            <IncomeChart incomeLabels = {uniqueIncomeCategories} incomeData = {groupedIncomes}/>
-            <ChargesChart chargesLabels = {uniqueChargesCategories} chargesData = {groupedCharges}/>
+            <IncomeChart incomeLabels = {uniqueIncomeCategories} incomeData = {groupedIncomes.flat()}/>
+            <ChargesChart chargesLabels = {uniqueChargesCategories} chargesData = {groupedCharges.flat()}/>
           </Flex>
         </ColumnFlex>
       </div>

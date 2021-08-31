@@ -43,7 +43,7 @@ const ChargesChart = ({chargesLabels, chargesData}) => {
         <DesignedFlex>
         <Pie
           data={data}
-          height={200}
+          height={300}
           options={{
               plugins: {
                 title:{

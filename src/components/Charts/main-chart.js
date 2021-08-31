@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 //npm install --save react-chartjs-2 chart.js
 import {Line} from 'react-chartjs-2';
 import Flex from '../StyledComponents/Flex';
@@ -12,55 +12,39 @@ const ChartFlex = styled(Flex)`
 `;
 
 const FilterFlex = styled(Flex)`
-  padding: 5px;
+  margin-top: 8px;
+  
   background-color: rgb(41,126,166,0.2);
   justify-content: flex-end;
+  
 `;
 
 const FilterInput = styled.div`
-	padding: 5px;
+	margin-right: 5px;
   color: rgba(132,125,115,1);
+  
 `
 
 
 const MainChart = ({chargesData, incomeData, dates}) => {
-  const arrayOfDates = [...dates]
-  let filteredDatesStart = arrayOfDates;
+  const [inputDateStart, setDateStart] = useState();
+  const [inputDateEnd, setDateEnd] = useState();
+
+  let datesEnd = inputDateEnd ? new Date(inputDateEnd.target.value).getTime() : Date.now();
+  let datesStart = inputDateStart ? new Date(inputDateStart.target.value).getTime() : new Date(dates[0]).getTime();
   
-  function filterDataStart(e) {
-      const startDate = e.target.value;
-      const startDateValue = new Date(startDate).getTime()
-      
-      const arrayOfDatesNumbers = arrayOfDates.map(x => new Date(x).getTime());
-      const filteredDatesValues = arrayOfDatesNumbers.filter(date => date > startDateValue);
-      const startDateIndex = arrayOfDatesNumbers.indexOf(filteredDatesValues[0]);
-      
-      if (startDateIndex !== -1) {
-        filteredDatesStart = arrayOfDates.slice(startDateIndex);
-        console.log(filteredDatesStart)
-      } 
-
-  }
-
-  function filterDataEnd(e) {
-    const endDate = e.target.value;
-    const endDateValue = new Date(endDate).getTime()
-    const arrayOfDates = [...dates]
-    const arrayOfDatesNumbers = arrayOfDates.map(x => new Date(x).getTime());
-    const filteredDatesValues = arrayOfDatesNumbers.filter(date => date < endDateValue).reverse();
-    const endDateIndex = arrayOfDatesNumbers.indexOf(filteredDatesValues[0]);
-    console.log(endDateIndex);
-}
+  let arrayOfDates = [...dates];
+  arrayOfDates = arrayOfDates.filter(item => new Date(item).getTime() <= datesEnd && new Date(item).getTime() >= datesStart);
 
 const state = {
-  labels: filteredDatesStart, 
+  labels: arrayOfDates, 
   datasets: [
     {
       label: 'Income',
       fill: false,
       lineTension: 0.5,
-      backgroundColor: 'rgba(253,178,1,1)',
-      borderColor: 'rgba(253,178,1,1)',
+      backgroundColor: 'rgba(252, 255, 0,1)',
+      borderColor: 'rgba(252, 255, 0,1)',
       borderWidth: 2,
       data: incomeData
     },
@@ -77,15 +61,14 @@ const state = {
   ]
 }
 
-console.log(filteredDatesStart)
     return (
     <div>
       <FilterFlex>
           <FilterInput> filter from date:
-              <input type="date" id="start-filter-interval" onChange={value => {filterDataStart(value)}}></input>
+              <input type="date" id="start-filter-interval" onChange={value => {setDateStart(value)}}></input>
           </FilterInput>
           <FilterInput> filter to date:
-              <input type="date" id="end-filter-interval" onChange={value => {filterDataEnd(value)}}></input>
+              <input type="date" id="end-filter-interval"  onChange={value => {setDateEnd(value)}}></input>
           </FilterInput>        
           
       </FilterFlex>

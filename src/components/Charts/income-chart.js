@@ -43,7 +43,7 @@ const data = {
       <DesignedFlex>
         <Bar
           data={data}
-          
+          height={300}
           options={{
             plugins: {
                 legend: {
