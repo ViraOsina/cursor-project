@@ -50,7 +50,7 @@ const Chart = () => {
   dates = chargesDates.concat(incomeDates);
   dates = dates.map(x => new Date(x).getTime()).sort((a,b) => a-b);
   const sortedDates = [...new Set(dates)].map(x => new Date(x).toLocaleDateString())
-
+  
   //income and charges in chronological order
   let incomesByDate = [];
   let chargesByDate = [];
@@ -60,10 +60,11 @@ const Chart = () => {
   for (let i = 0; i < sortedDates.length; i++) {
     const incomeData = [...incomesDB];
     
-    const elementIncome = incomeData.filter(income => income.date === sortedDates[i])
+    const elementIncome = incomeData.filter(income => new Date(income.milliseconds+259200000).toLocaleDateString() === sortedDates[i])
                     .map(income => +income.money);
     
     incomesByDate.push(elementIncome);
+    console.log(new Date(incomeData[i].milliseconds+259200000).toLocaleDateString(), sortedDates[i])
     incomesByDate = incomesByDate.filter(x => x.length !== 0);
     incomesByDate[i] = incomesByDate[i]  &&  incomesByDate[i].length > 1 ? 
                         incomesByDate[i].reduce(reducer): incomesByDate[i]      
@@ -72,7 +73,7 @@ const Chart = () => {
   for (let i = 0; i < sortedDates.length; i++) {
     const chargesData = [...chargesDB];
     
-    const elementCharges = chargesData.filter(charge => charge.date === sortedDates[i])
+    const elementCharges = chargesData.filter(charge => new Date(charge.milliseconds+259200000).toLocaleDateString() === sortedDates[i])
                           .map(charge => +charge.money);
                           
     chargesByDate.push(elementCharges);
