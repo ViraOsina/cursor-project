@@ -2,19 +2,19 @@ const TableItemsIncomes = [
     {
         category: 'Salary',
         description: "",
-        date: '22 Aug',
+        date: '27 Aug',
         money: 2300,
     },
     {
         category: 'Gift',
         description: "",
-        date: '15 May',
+        date: '18 May',
         money: 200,
     },
     {
         category: 'Bonus',
         description: "",
-        date: '27 Mar',
+        date: '30 Mar',
         money: 350,
     },
 ];

@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import TableItems from '../dataBase';
 import TableItemsIncomes from '../dataBaseIncomes'
+import moment from 'moment';
 
 const ColumnFlex = styled(Flex)`
   flex-direction:column;
@@ -19,65 +20,72 @@ const Chart = () => {
   
   const chargesDB = rawChargesData ? rawChargesData : TableItems;
   const incomesDB = rawIncomeData ? rawIncomeData : TableItemsIncomes;
-  //console.log(TableItems, TableItemsIncomes)
 
   let chargesSum = [];
   let chargesCategories = [];
   let chargesDates = [];
+  let chargesDateNum = [];
 
   for (let i = 0; i < chargesDB.length; i++) {
 
       chargesSum = [...chargesSum, +chargesDB[i].money];
       chargesCategories = [...chargesCategories, chargesDB[i].category];
       chargesDates = [...chargesDates, chargesDB[i].date];
+      chargesDateNum = [...chargesDateNum, chargesDB[i].milliseconds]
     
   }
 
   let incomeSum = [];
   let incomeCategories = [];
   let incomeDates = [];
+  let incomeDateNum = [];
 
   for (let i = 0; i < incomesDB.length; i++) {
 
       incomeSum = [...incomeSum, +incomesDB[i].money];
       incomeCategories = [...incomeCategories, incomesDB[i].category];
       incomeDates = [...incomeDates, incomesDB[i].date];
-    
+      incomeDateNum = [...incomeDateNum, incomesDB[i].milliseconds];
+      
   }
 
   //dates in order  
   let dates = [];
-  dates = chargesDates.concat(incomeDates);
-  dates = dates.map(x => new Date(x).getTime()).sort((a,b) => a-b);
-  const sortedDates = [...new Set(dates)].map(x => new Date(x).toLocaleDateString())
+  let datesNum = [];
+  datesNum = chargesDateNum.concat(incomeDateNum);
+  datesNum = datesNum.sort((a,b) => a-b);
+  datesNum = [...new Set(datesNum)];
+  console.log(datesNum);
   
+  dates = [...new Set(datesNum.map(x => moment(x).format('l')))]
+  
+  console.log(dates)
   //income and charges in chronological order
   let incomesByDate = [];
   let chargesByDate = [];
 
   const reducer = (a, b) => a + b;
 
-  for (let i = 0; i < sortedDates.length; i++) {
+ for (let i = 0; i < dates.length; i++) {
     const incomeData = [...incomesDB];
     
-    const elementIncome = incomeData.filter(income => new Date(income.milliseconds+259200000).toLocaleDateString() === sortedDates[i])
+    const elementIncome = incomeData.filter(income => moment(income.milliseconds).format('l') === dates[i])
                     .map(income => +income.money);
     
     incomesByDate.push(elementIncome);
-    console.log(new Date(incomeData[i].milliseconds+259200000).toLocaleDateString(), sortedDates[i])
-    incomesByDate = incomesByDate.filter(x => x.length !== 0);
+    
     incomesByDate[i] = incomesByDate[i]  &&  incomesByDate[i].length > 1 ? 
                         incomesByDate[i].reduce(reducer): incomesByDate[i]      
   }
 
-  for (let i = 0; i < sortedDates.length; i++) {
+  for (let i = 0; i < dates.length; i++) {
     const chargesData = [...chargesDB];
     
-    const elementCharges = chargesData.filter(charge => new Date(charge.milliseconds+259200000).toLocaleDateString() === sortedDates[i])
+    const elementCharges = chargesData.filter(charge => moment(charge.milliseconds).format('l') === dates[i])
                           .map(charge => +charge.money);
                           
     chargesByDate.push(elementCharges);
-    chargesByDate = chargesByDate.filter(x => x.length !== 0);
+    
     chargesByDate[i] = chargesByDate[i] && chargesByDate[i].length > 1 ? 
                         chargesByDate[i].reduce(reducer): chargesByDate[i]
   }
@@ -112,7 +120,7 @@ const Chart = () => {
           <MainChart 
             chargesData = {chargesByDate.flat()} 
             incomeData = {incomesByDate.flat()} 
-            dates = {sortedDates}/>
+            dates = {dates}/>
 
           <Flex>
             <IncomeChart incomeLabels = {uniqueIncomeCategories} incomeData = {groupedIncomes.flat()}/>
