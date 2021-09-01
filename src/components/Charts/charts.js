@@ -5,8 +5,8 @@ import ChargesChart from './charges-chart';
 import Flex from '../StyledComponents/Flex'
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-//import TableItems from '../dataBase';
-//import TableItemsIncomes from '../dataBaseIncomes'
+import TableItems from '../dataBase';
+import TableItemsIncomes from '../dataBaseIncomes'
 
 const ColumnFlex = styled(Flex)`
   flex-direction:column;
@@ -14,9 +14,11 @@ const ColumnFlex = styled(Flex)`
 `;
 
 const Chart = () => {
-  const chargesDB = useSelector(state => state.homeReducer.chargesDB);
-  const incomesDB = useSelector(state => state.homeReducer.incomesDB);
+  const rawChargesData = useSelector(state => state.homeReducer.chargesDB);
+  const rawIncomeData = useSelector(state => state.homeReducer.incomesDB);
   
+  const chargesDB = rawChargesData ? rawChargesData : TableItems;
+  const incomesDB = rawIncomeData ? rawIncomeData : TableItemsIncomes;
   //console.log(TableItems, TableItemsIncomes)
 
   let chargesSum = [];
@@ -53,21 +55,32 @@ const Chart = () => {
   let incomesByDate = [];
   let chargesByDate = [];
 
+  const reducer = (a, b) => a + b;
+
   for (let i = 0; i < sortedDates.length; i++) {
     const incomeData = [...incomesDB];
-    const reducer = (a, b) => a + b;
+    
     const elementIncome = incomeData.filter(income => income.date === sortedDates[i])
-                    .map(income => +income.money)
-                    .reduce(reducer);
+                    .map(income => +income.money);
+    
     incomesByDate.push(elementIncome);
-
-    const chargesData = [...chargesDB];
-    const elementCharges = chargesData.filter(charge => charge.date === sortedDates[i])
-                    .map(charge => +charge.money)
-                    .reduce(reducer);
-    chargesByDate.push(elementCharges);
+    incomesByDate = incomesByDate.filter(x => x.length !== 0);
+    incomesByDate[i] = incomesByDate[i]  &&  incomesByDate[i].length > 1 ? 
+                        incomesByDate[i].reduce(reducer): incomesByDate[i]      
   }
-  
+
+  for (let i = 0; i < sortedDates.length; i++) {
+    const chargesData = [...chargesDB];
+    
+    const elementCharges = chargesData.filter(charge => charge.date === sortedDates[i])
+                          .map(charge => +charge.money);
+                          
+    chargesByDate.push(elementCharges);
+    chargesByDate = chargesByDate.filter(x => x.length !== 0);
+    chargesByDate[i] = chargesByDate[i] && chargesByDate[i].length > 1 ? 
+                        chargesByDate[i].reduce(reducer): chargesByDate[i]
+  }
+
   //sorted data by categories for incomes and charges
   const uniqueIncomeCategories = [...new Set(incomeCategories)];
   const uniqueChargesCategories = [...new Set(chargesCategories)];
